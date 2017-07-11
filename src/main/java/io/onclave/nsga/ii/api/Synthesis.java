@@ -67,7 +67,7 @@ public class Synthesis {
         Allele[] geneticCode2 = new Allele[Configuration.getCHROMOSOME_LENGTH()];
         Allele[] chromosome1geneCode = chromosome1.getGeneticCode();
         Allele[] chromosome2geneCode = chromosome2.getGeneticCode();
-        Chromosome[] childChromosomes = new Chromosome[2];
+        Chromosome[] childChromosomes = {new Chromosome(), new Chromosome()};
         int breakPoint = Configuration.getCHROMOSOME_LENGTH() / 2;
         
         if(LOCAL_RANDOM.nextFloat() <= Configuration.getCROSSOVER_PROBABILITY()) {

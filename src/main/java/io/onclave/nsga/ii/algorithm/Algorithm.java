@@ -24,6 +24,8 @@ public class Algorithm {
     
     public static void main(String[] args) {
         
+        Configuration.buildObjectives();
+        
         Population initialSortedParentPopulation = Service.nonDominatedPopulationSort(Synthesis.syntesizePopulation());
         Population initialChildPopulation = Synthesis.synthesizeChild(initialSortedParentPopulation);
         
