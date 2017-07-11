@@ -19,11 +19,16 @@ public class SCH_1 implements IObjectiveFunction {
     
     @Override
     public double objectiveFunction(final ParetoObject paretoObject) {
-        return Math.pow(Service.decodeGeneticCode(paretoObject.getChromosome().getGeneticCode()), 2);
+        return objectiveFunction(paretoObject.getChromosome());
     }
     
     @Override
     public double objectiveFunction(final Chromosome chromosome) {
-        return objectiveFunction(new ParetoObject(chromosome));
+        return objectiveFunction(Service.decodeGeneticCode(chromosome.getGeneticCode()));
+    }
+
+    @Override
+    public double objectiveFunction(double geneVaue) {
+        return Math.pow(geneVaue, 2);
     }
 }

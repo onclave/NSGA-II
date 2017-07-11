@@ -14,15 +14,19 @@ import java.util.List;
 public class Chromosome {
     
     public Chromosome() {
-        this(null, 9999f, "");
+        this(-9999d);
     }
     
-    public Chromosome(final Allele[] geneticCode, final float fitness, final String extraInfo) {
+    public Chromosome(final double fitness) {
+        this(null, fitness, "");
+    }
+    
+    public Chromosome(final Allele[] geneticCode, final double fitness, final String extraInfo) {
         this(geneticCode, fitness, extraInfo, -1);
         
     }
     
-    public Chromosome(final Allele[] geneticCode, final float fitness, final String extraInfo, final int rank) {
+    public Chromosome(final Allele[] geneticCode, final double fitness, final String extraInfo, final int rank) {
         
         this.geneticCode = geneticCode;
         this.fitness = fitness;
@@ -33,7 +37,7 @@ public class Chromosome {
     }
     
     private Allele[] geneticCode;
-    private float fitness;
+    private double fitness;
     private String extraInfo;
     private int dominationRank;
     private String uniqueID;
@@ -77,13 +81,14 @@ public class Chromosome {
 
     public void setGeneticCode(Allele[] geneticCode) {
         this.geneticCode = geneticCode;
+        this.setFitness(Service.calculateFitness(geneticCode));
     }
 
-    public float getFitness() {
+    public double getFitness() {
         return fitness;
     }
 
-    public void setFitness(float fitness) {
+    public void setFitness(double fitness) {
         this.fitness = fitness;
     }
 }

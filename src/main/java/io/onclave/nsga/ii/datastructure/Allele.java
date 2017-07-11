@@ -26,4 +26,8 @@ public class Allele {
     public void setGene(boolean gene) {
         this.gene = gene;
     }
+    
+    public void bitFlip() {
+        this.gene = !this.gene;
+    }
 }
