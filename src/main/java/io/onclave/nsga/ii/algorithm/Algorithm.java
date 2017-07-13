@@ -1,8 +1,5 @@
 /*
- * This code file and the codebase/software containing it is 
- * explicitely licensed to Mr. Debabrata Acharya (@onclave)
- * unauthorized use and access of the codebase, parts of the 
- * codebase, software or parts of this software is not allowed.
+ * This repository / codebase is Open Source and free for use and rewrite.
  */
 package io.onclave.nsga.ii.algorithm;
 

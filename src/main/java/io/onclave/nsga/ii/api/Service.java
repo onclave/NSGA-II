@@ -33,9 +33,10 @@ public class Service {
             chromosome.setDominationRank(0);
             chromosome.setDominatedChromosomes(new ArrayList<>());
             
-            for (Chromosome competitor : populace) if(!competitor.getUniqueID().equals(chromosome.getUniqueID()))
+            for (Chromosome competitor : populace) if(!competitor.getUniqueID().equals(chromosome.getUniqueID())) {
                 if(dominates(chromosome, competitor)) chromosome.getDominatedChromosomes().add(competitor);
                 else if(dominates(competitor, chromosome)) chromosome.setDominationRank(chromosome.getDominationRank() + 1);
+            }
             
             if(chromosome.getDominationRank() == 0) singularFront.add(chromosome);
         }
@@ -124,7 +125,7 @@ public class Service {
         Population newPopulation = new Population();
         
         
-        
+        //--TO-DO--
         
         
         
@@ -199,7 +200,6 @@ public class Service {
             
             randomizedQuickSort(paretoArray, head, pivot - 1, objective);
             randomizedQuickSort(paretoArray, pivot + 1, tail, objective);
-            
         }
     }
     
