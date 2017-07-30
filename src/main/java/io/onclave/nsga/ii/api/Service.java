@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Service {
     
-    public static HashMap<Integer, List<Chromosome>> fastNonDominatedSort(Population population) {
+    public static HashMap<Integer, List<Chromosome>> fastNonDominatedSort(Population population) { p("start fnds");
         
         HashMap<Integer, List<Chromosome>> paretoFront = new HashMap<>();
         List<Chromosome> singularFront = new ArrayList<>();
@@ -33,7 +33,7 @@ public class Service {
             chromosome.setDominationRank(0);
             chromosome.setDominatedChromosomes(new ArrayList<>());
             
-            for (Chromosome competitor : populace) if(!competitor.getUniqueID().equals(chromosome.getUniqueID())) {
+            for (Chromosome competitor : populace) if(!competitor.equals(chromosome)) {
                 if(dominates(chromosome, competitor)) chromosome.getDominatedChromosomes().add(competitor);
                 else if(dominates(competitor, chromosome)) chromosome.setDominationRank(chromosome.getDominationRank() + 1);
             }
@@ -43,22 +43,24 @@ public class Service {
         
         paretoFront.put(1, singularFront);
         
+        p("\n\nINITIAL PARETO\n\n");
+        Reporter.reportParetoFront(paretoFront); p("\n\nINITIAL PARETO END\n\n");
+        
         int i = 1;
         
-        while(!paretoFront.get(i).isEmpty()) {
+        while(!paretoFront.get(i).isEmpty()) { System.out.println("front " + i);
             
-            int iStale = i;
             List<Chromosome> nextFront = new ArrayList<>();
             
-            for(Chromosome chromosome : paretoFront.get(iStale)) for(Chromosome recessive : chromosome.getDominatedChromosomes()) {
-                recessive.setDominationRank(recessive.getDominationRank() - 1);
-                if(recessive.getDominationRank() == 0) nextFront.add(recessive);
+            for(Chromosome chromosome : paretoFront.get(i)) { p("\nparent : " + chromosome.getUniqueID() + " : " + chromosome.getFitness() + " | " + chromosome.getDominationRank());
+                for(Chromosome recessive : chromosome.getDominatedChromosomes()) { p("\n\tchild : " + recessive.getUniqueID() + " : " + recessive.getFitness() + " | " + recessive.getDominationRank());
+                    if(recessive.getDominationRank() != 0) recessive.setDominationRank(recessive.getDominationRank() - 1);
+                    if(recessive.getDominationRank() == 0) if(!nextFront.contains(recessive)) nextFront.add(recessive);
+                }
             }
             
-            i += 1;
-            
-            paretoFront.put(i, nextFront);
-        }
+            paretoFront.put(++i, nextFront);
+        } p("end fnds");
         
         return paretoFront;
     }
@@ -90,8 +92,8 @@ public class Service {
                                                                                                         minObjectiveValue));
         }
         
-        return singlePareto;
-    }
+        return singlePareto; 
+   }
     
     public static List<ParetoObject> crowdComparisonSort(List<ParetoObject> singleFront) {
         
@@ -136,16 +138,11 @@ public class Service {
     
     public static boolean dominates(final Chromosome competitor1, final Chromosome competitor2) {
         
-        float aggregatedObjectiveValues1 = 0;
-        float aggregatedObjectiveValues2 = 0;
         List<IObjectiveFunction> objectives = Configuration.getObjectives();
         
-        for(IObjectiveFunction objective : objectives) {
-            aggregatedObjectiveValues1 += objective.objectiveFunction(competitor1);
-            aggregatedObjectiveValues2 += objective.objectiveFunction(competitor2);
-        }
+        if (!objectives.stream().noneMatch((objective) -> (objective.objectiveFunction(competitor1) < objective.objectiveFunction(competitor2)))) return false;
         
-        return (aggregatedObjectiveValues1 > aggregatedObjectiveValues2);
+        return objectives.stream().anyMatch((objective) -> (objective.objectiveFunction(competitor1) > objective.objectiveFunction(competitor2)));
     }
     
     private static List<ParetoObject> sort(List<ParetoObject> singlePareto, IObjectiveFunction objective) {
@@ -231,12 +228,14 @@ public class Service {
     }
     
     public static double decodeGeneticCode(final Allele[] geneticCode) {
-        
+
+        double value = 0;
         String binaryString = "";
         
-        for(Allele bit : geneticCode) if(bit.getGene()) binaryString += "1"; else binaryString += "0";
+        for(Allele bit : geneticCode) binaryString += bit.getGene() ? "1" : "0";
+        for(int i = 0; i < binaryString.length(); i++) if(binaryString.charAt(i) == '1') value += Math.pow(2, binaryString.length() - 1 - i);
         
-        return Double.longBitsToDouble(new BigInteger(binaryString, 2).longValue());
+        return value;
     }
     
     public static double calculateFitness(Allele[] geneticCode) {
@@ -252,5 +251,9 @@ public class Service {
     
     public static int generateRandomInt() {
         return ThreadLocalRandom.current().nextInt();
+    }
+    
+    public static void p(String string) {
+        System.out.println(string);
     }
 }

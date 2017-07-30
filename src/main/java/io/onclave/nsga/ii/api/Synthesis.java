@@ -38,12 +38,7 @@ public class Synthesis {
         Population child = new Population();
         List<Chromosome> populace = new ArrayList<>();
         
-        while(populace.size() < Configuration.getPOPULATION_SIZE()) {
-            
-            Chromosome[] childChromosomes = crossover(binaryTournamentSelection(parent), binaryTournamentSelection(parent));
-            
-            for(Chromosome chromosome : childChromosomes) populace.add(mutation(chromosome));
-        }
+        while(populace.size() < Configuration.getPOPULATION_SIZE()) for(Chromosome chromosome : crossover(binaryTournamentSelection(parent), binaryTournamentSelection(parent))) populace.add(mutation(chromosome));
         
         child.setPopulace(populace);
         
@@ -58,7 +53,7 @@ public class Synthesis {
         if(individual1.getFitness() > individual2.getFitness()) return individual1; else return individual2;
     }
     
-    private static Chromosome[] crossover(Chromosome chromosome1, Chromosome chromosome2) {
+    public static Chromosome[] crossover(Chromosome chromosome1, Chromosome chromosome2) {
         
         Allele[] geneticCode1 = new Allele[Configuration.getCHROMOSOME_LENGTH()];
         Allele[] geneticCode2 = new Allele[Configuration.getCHROMOSOME_LENGTH()];
@@ -102,7 +97,7 @@ public class Synthesis {
         return chromosome;
     }
     
-    private static Allele[] synthesizeGeneticCode(final int length) {
+    public static Allele[] synthesizeGeneticCode(final int length) {
         
         Allele[] geneticCode = new Allele[length];
         
@@ -111,7 +106,7 @@ public class Synthesis {
         return geneticCode;
     }
     
-    private static Allele synthesizeAllele() {
+    public static Allele synthesizeAllele() {
         return new Allele(LOCAL_RANDOM.nextBoolean());
     }
 }
