@@ -22,7 +22,7 @@ public class Chromosome {
     }
     
     public Chromosome(final Allele[] geneticCode, final double fitness, final String extraInfo) {
-        this(geneticCode, fitness, extraInfo, -1);
+        this(geneticCode, fitness, extraInfo, 0);
         
     }
     
@@ -39,7 +39,7 @@ public class Chromosome {
     private Allele[] geneticCode;
     private double fitness;
     private String extraInfo;
-    private int dominationRank;
+    private int dominationRank = 0;
     private String uniqueID;
     private List<Chromosome> dominatedChromosomes;
 

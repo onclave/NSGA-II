@@ -9,7 +9,6 @@ import io.onclave.nsga.ii.datastructure.Allele;
 import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.ParetoObject;
 import io.onclave.nsga.ii.datastructure.Population;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,37 +29,41 @@ public class Service {
         
         for(Chromosome chromosome : populace) {
             
-            chromosome.setDominationRank(0);
+//            chromosome.setDominationRank(0);
             chromosome.setDominatedChromosomes(new ArrayList<>());
             
             for (Chromosome competitor : populace) if(!competitor.equals(chromosome)) {
-                if(dominates(chromosome, competitor)) chromosome.getDominatedChromosomes().add(competitor);
-                else if(dominates(competitor, chromosome)) chromosome.setDominationRank(chromosome.getDominationRank() + 1);
-            }
+                if(dominates(chromosome, competitor)) {
+                    chromosome.getDominatedChromosomes().add(competitor);
+                }
+                else if(dominates(competitor, chromosome)) {
+                    chromosome.setDominationRank(chromosome.getDominationRank() + 1); System.out.println("Dominatio rank : " + chromosome.getDominationRank());
+                }
+            } System.out.println("dom rank : " + chromosome.getDominationRank());
             
             if(chromosome.getDominationRank() == 0) singularFront.add(chromosome);
         }
         
         paretoFront.put(1, singularFront);
         
-        p("\n\nINITIAL PARETO\n\n");
-        Reporter.reportParetoFront(paretoFront); p("\n\nINITIAL PARETO END\n\n");
-        
-        int i = 1;
-        
-        while(!paretoFront.get(i).isEmpty()) { System.out.println("front " + i);
-            
-            List<Chromosome> nextFront = new ArrayList<>();
-            
-            for(Chromosome chromosome : paretoFront.get(i)) { p("\nparent : " + chromosome.getUniqueID() + " : " + chromosome.getFitness() + " | " + chromosome.getDominationRank());
-                for(Chromosome recessive : chromosome.getDominatedChromosomes()) { p("\n\tchild : " + recessive.getUniqueID() + " : " + recessive.getFitness() + " | " + recessive.getDominationRank());
-                    if(recessive.getDominationRank() != 0) recessive.setDominationRank(recessive.getDominationRank() - 1);
-                    if(recessive.getDominationRank() == 0) if(!nextFront.contains(recessive)) nextFront.add(recessive);
-                }
-            }
-            
-            paretoFront.put(++i, nextFront);
-        } p("end fnds");
+//        p("\n\nINITIAL PARETO\n\n");
+//        Reporter.reportParetoFront(paretoFront); p("\n\nINITIAL PARETO END\n\n");
+//        
+//        int i = 1;
+//        
+//        while(paretoFront.get(i) != null && !paretoFront.get(i).isEmpty()) { System.out.println("front " + i);
+//            
+//            List<Chromosome> nextFront = new ArrayList<>();
+//            
+//            for(Chromosome chromosome : paretoFront.get(i)) { p("\nparent : " + chromosome.getUniqueID() + " : " + chromosome.getFitness() + " | " + chromosome.getDominationRank());
+//                for(Chromosome recessive : chromosome.getDominatedChromosomes()) { p("\n\tchild : " + recessive.getUniqueID() + " : " + recessive.getFitness() + " | " + recessive.getDominationRank());
+//                    if(recessive.getDominationRank() != 0) recessive.setDominationRank(recessive.getDominationRank() - 1);
+//                    if(recessive.getDominationRank() == 0) if(!nextFront.contains(recessive)) nextFront.add(recessive);
+//                }
+//            }
+//            
+//            paretoFront.put(++i, (nextFront.isEmpty()) ? null : nextFront);
+//        } p("end fnds");
         
         return paretoFront;
     }

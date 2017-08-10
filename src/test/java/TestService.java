@@ -3,11 +3,7 @@ import io.onclave.nsga.ii.api.Reporter;
 import io.onclave.nsga.ii.api.Service;
 import io.onclave.nsga.ii.api.Synthesis;
 import io.onclave.nsga.ii.configuration.Configuration;
-import io.onclave.nsga.ii.datastructure.Allele;
-import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.Population;
-import java.util.HashMap;
-import java.util.List;
 
 /*
  * This code file and the codebase/software containing it is 
@@ -26,9 +22,9 @@ public class TestService {
         
         Configuration.buildObjectives();
         
-        decodeGeneticCodeTest();
-        calculateFitnessTest();
-        createCombinedPopulationTest();
+//        decodeGeneticCodeTest();
+//        calculateFitnessTest();
+//        createCombinedPopulationTest();
         fastNonDominatedSortTest();
     }
     
