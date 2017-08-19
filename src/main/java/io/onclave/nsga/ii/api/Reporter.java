@@ -34,22 +34,37 @@ public class Reporter {
         p("GENETIC CODE : " + geneticString);
     }
     
+    public static void reportSingularFront(List<Chromosome> singularFront, int i) {
+        
+        p("\n\nFRONT : " + i);
+
+        for(Chromosome c : singularFront) {
+            int j = 0;
+            p("\tmaster : " + c.getUniqueID() + " | " + Double.toString(c.getFitness()));
+            for(Chromosome dc : c.getDominatedChromosomes()) p("\t\tslave : " + ++j + " | " + dc.getUniqueID() + " | " + Integer.toString(dc.getDominationRank()));
+        }
+    }
+    
     public static void reportParetoFront(HashMap<Integer, List<Chromosome>> paretoFront) {
         
         int j = 1;
+        int max = paretoFront.size();
         
-        for(int i = 1; i <= paretoFront.size(); i++) {
+        for(int i = 1; i <= max; i++) {
             
-            p("\n FRONT : " + i);
+            p("\n\nFRONT : " + i);
             
-            int d = 1;
+            int d = 0;
             List<Chromosome> population = paretoFront.get(i);
             
-            for(Chromosome chromosome : population) {
+            if(population != null && !population.isEmpty()) {
                 
-                p("Fitness : Chromosome " + j++ + " : " + chromosome.getFitness() + " | DOMINATION RANK : " + chromosome.getDominationRank() + "\n");
-                
-                for(Chromosome dominated : chromosome.getDominatedChromosomes()) p("\tDOMINATED CHROMOSOME : " + d++ + " : " + dominated.getFitness() + " | DOMINATION RANK : " + chromosome.getDominationRank() + "\n");
+                for(Chromosome c : population) {
+                    
+                    p("\tmaster : " + c.getUniqueID() + " | " + Double.toString(c.getFitness()));
+                    
+                    for(Chromosome dc : c.getDominatedChromosomes()) p("\t\tslave : " + ++d + " | " + dc.getUniqueID() + " | " + Integer.toString(dc.getDominationRank()));
+                }
             }
         }
     }

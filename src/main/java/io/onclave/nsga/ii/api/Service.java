@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Service {
     
-    public static HashMap<Integer, List<Chromosome>> fastNonDominatedSort(Population population) { p("start fnds");
+    public static HashMap<Integer, List<Chromosome>> fastNonDominatedSort(Population population) {
         
         HashMap<Integer, List<Chromosome>> paretoFront = new HashMap<>();
         List<Chromosome> singularFront = new ArrayList<>();
@@ -29,42 +29,55 @@ public class Service {
         
         for(Chromosome chromosome : populace) {
             
-//            chromosome.setDominationRank(0);
+            chromosome.setDominationRank(0);
             chromosome.setDominatedChromosomes(new ArrayList<>());
             
             for (Chromosome competitor : populace) if(!competitor.equals(chromosome)) {
-                if(dominates(chromosome, competitor)) {
-                    chromosome.getDominatedChromosomes().add(competitor);
-                }
-                else if(dominates(competitor, chromosome)) {
-                    chromosome.setDominationRank(chromosome.getDominationRank() + 1); System.out.println("Dominatio rank : " + chromosome.getDominationRank());
-                }
-            } System.out.println("dom rank : " + chromosome.getDominationRank());
+                if(dominates(chromosome, competitor)) { if(!chromosome.getDominatedChromosomes().contains(competitor)) chromosome.getDominatedChromosomes().add(competitor); }
+                else if(dominates(competitor, chromosome)) chromosome.setDominationRank(chromosome.getDominationRank() + 1);
+            }
             
             if(chromosome.getDominationRank() == 0) singularFront.add(chromosome);
         }
         
         paretoFront.put(1, singularFront);
         
-//        p("\n\nINITIAL PARETO\n\n");
-//        Reporter.reportParetoFront(paretoFront); p("\n\nINITIAL PARETO END\n\n");
-//        
-//        int i = 1;
-//        
-//        while(paretoFront.get(i) != null && !paretoFront.get(i).isEmpty()) { System.out.println("front " + i);
-//            
-//            List<Chromosome> nextFront = new ArrayList<>();
-//            
-//            for(Chromosome chromosome : paretoFront.get(i)) { p("\nparent : " + chromosome.getUniqueID() + " : " + chromosome.getFitness() + " | " + chromosome.getDominationRank());
-//                for(Chromosome recessive : chromosome.getDominatedChromosomes()) { p("\n\tchild : " + recessive.getUniqueID() + " : " + recessive.getFitness() + " | " + recessive.getDominationRank());
-//                    if(recessive.getDominationRank() != 0) recessive.setDominationRank(recessive.getDominationRank() - 1);
-//                    if(recessive.getDominationRank() == 0) if(!nextFront.contains(recessive)) nextFront.add(recessive);
-//                }
-//            }
-//            
-//            paretoFront.put(++i, (nextFront.isEmpty()) ? null : nextFront);
-//        } p("end fnds");
+        int i = 1;
+        List<Chromosome> previousFront = paretoFront.get(i);
+        List<Chromosome> nextFront = new ArrayList<>();
         
+        while(previousFront != null && !previousFront.isEmpty()) {
+            
+            Reporter.reportSingularFront(previousFront, i);
+            
+            for(Chromosome chromosome : previousFront) {
+                
+                for(Chromosome recessive : chromosome.getDominatedChromosomes()) {
+                    
+                    if(recessive.getDominationRank() != 0) recessive.setDominationRank(recessive.getDominationRank() - 1);
+                    if(recessive.getDominationRank() == 0) if(!nextFront.contains(recessive)) nextFront.add(recessive);
+                }
+            }
+            
+            if(nextFront.isEmpty() && !isDominatedChromosomesEmpty(previousFront)) {
+                
+                Chromosome chromosome = previousFront.get(0);
+                
+                while(hasRecessiveRankGreaterThanZero(chromosome)) {
+                    
+                    for(Chromosome recessive : chromosome.getDominatedChromosomes()) {
+                        if(recessive.getDominationRank() != 0) recessive.setDominationRank(recessive.getDominationRank() - 1);
+                        if(recessive.getDominationRank() == 0) if(!nextFront.contains(recessive)) nextFront.add(recessive);
+                    }
+                }
+            }
+            
+            if(!nextFront.isEmpty()) paretoFront.put(++i, nextFront); else break;
+            
+            previousFront = nextFront;
+            nextFront = new ArrayList<>();
+        }
+
         return paretoFront;
     }
     
@@ -203,8 +216,6 @@ public class Service {
         }
     }
     
-    
-    
     private static double calculateCrowdingDistance(List<ParetoObject> singlePareto,
                                                     final int presentIndex,
                                                     final IObjectiveFunction objective,
@@ -216,6 +227,24 @@ public class Service {
             + ((objective.objectiveFunction(singlePareto.get(presentIndex + 1))
             + objective.objectiveFunction(singlePareto.get(presentIndex - 1))) / (maxObjectiveValue - minObjectiveValue))
         );
+    }
+    
+    private static boolean isDominatedChromosomesEmpty(List<Chromosome> front) {
+        
+        if(front.isEmpty()) return true;
+        else if (!front.stream().noneMatch((chromosome) -> (!chromosome.getDominatedChromosomes().isEmpty()))) return false;
+        
+        return true;
+    }
+    
+    private static boolean hasRecessiveRankGreaterThanZero(Chromosome chromosome) {
+        
+        List<Chromosome> recessives = chromosome.getDominatedChromosomes();
+        
+        if(recessives.isEmpty()) return false;
+        else if (!recessives.stream().noneMatch((recessive) -> (recessive.getDominationRank() == 0))) return false;
+        
+        return true;
     }
     
     public static Population createCombinedPopulation(Population parent, Population child) {
@@ -242,14 +271,11 @@ public class Service {
     }
     
     public static double calculateFitness(Allele[] geneticCode) {
-        
-        double aggregatedValue = 0;
-        double geneValue = decodeGeneticCode(geneticCode);
-        List<IObjectiveFunction> objectives = Configuration.getObjectives();
-        
-        for(IObjectiveFunction objective : objectives) aggregatedValue += objective.objectiveFunction(geneValue);
-        
-        return (aggregatedValue / objectives.size());
+        return minMaxNormalization(decodeGeneticCode(geneticCode));
+    }
+    
+    private static double minMaxNormalization(final double value) {
+        return (((value - Configuration.ACTUAL_MIN) / (Configuration.ACTUAL_MAX - Configuration.ACTUAL_MIN)) * (Configuration.NORMALIZED_MAX - Configuration.NORMALIZED_MIN)) + Configuration.NORMALIZED_MIN;
     }
     
     public static int generateRandomInt() {

@@ -1,9 +1,7 @@
 
 import io.onclave.nsga.ii.api.Reporter;
 import io.onclave.nsga.ii.api.Synthesis;
-import static io.onclave.nsga.ii.api.Synthesis.synthesizeGeneticCode;
 import io.onclave.nsga.ii.configuration.Configuration;
-import io.onclave.nsga.ii.datastructure.Allele;
 import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.Population;
 

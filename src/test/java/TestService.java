@@ -91,7 +91,9 @@ public class TestService {
         
         p("\nPARETO FRONT");
         
-        Reporter.reportParetoFront(Service.fastNonDominatedSort(combined));
+//        Reporter.reportParetoFront(Service.fastNonDominatedSort(combined));
+
+        Service.fastNonDominatedSort(combined);
         
         p("\nfastNonDominatedSortTest : END\n");
     }

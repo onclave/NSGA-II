@@ -15,12 +15,17 @@ import java.util.List;
  */
 public class Configuration {
     
-    private static final int POPULATION_SIZE = 10;
-    private static final int GENERATIONS = 5;
+    private static final int POPULATION_SIZE = 200;
+    private static final int GENERATIONS = 10;
     private static final int CHROMOSOME_LENGTH = 8;
     private static final float CROSSOVER_PROBABILITY = 0.7f;
     private static final float MUTATION_PROBABILITY = 0.03f;
     private static List<IObjectiveFunction> objectives = null;
+    
+    public static final int ACTUAL_MIN = 0;
+    public static final int ACTUAL_MAX = 255;
+    public static final int NORMALIZED_MIN = 0;
+    public static final int NORMALIZED_MAX = 2;
 
     public static int getPOPULATION_SIZE() {
         return POPULATION_SIZE;

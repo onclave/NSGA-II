@@ -16,7 +16,8 @@ public class SCH_2 implements IObjectiveFunction {
 
     @Override
     public double objectiveFunction(Chromosome chromosome) {
-        return objectiveFunction(Service.decodeGeneticCode(chromosome.getGeneticCode()));
+//        return objectiveFunction(Service.decodeGeneticCode(chromosome.getGeneticCode()));
+        return objectiveFunction(chromosome.getFitness());
     }
 
     @Override
@@ -26,7 +27,7 @@ public class SCH_2 implements IObjectiveFunction {
 
     @Override
     public double objectiveFunction(double geneVaue) {
-        return Math.pow(geneVaue, 2);
+        return Math.pow(geneVaue - 2, 2);
     }
     
 }
