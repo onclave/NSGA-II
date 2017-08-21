@@ -4,7 +4,6 @@
 package io.onclave.nsga.ii.objectivefunction;
 
 import io.onclave.nsga.ii.Interface.IObjectiveFunction;
-import io.onclave.nsga.ii.api.Service;
 import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.ParetoObject;
 
@@ -13,10 +12,11 @@ import io.onclave.nsga.ii.datastructure.ParetoObject;
  * @author sajib
  */
 public class SCH_2 implements IObjectiveFunction {
+    
+    private static final String AXIS_TITLE = "pow(x - 2, 2)";
 
     @Override
     public double objectiveFunction(Chromosome chromosome) {
-//        return objectiveFunction(Service.decodeGeneticCode(chromosome.getGeneticCode()));
         return objectiveFunction(chromosome.getFitness());
     }
 
@@ -28,6 +28,11 @@ public class SCH_2 implements IObjectiveFunction {
     @Override
     public double objectiveFunction(double geneVaue) {
         return Math.pow(geneVaue - 2, 2);
+    }
+
+    @Override
+    public String getAxisTitle() {
+        return AXIS_TITLE;
     }
     
 }

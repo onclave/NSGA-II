@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Configuration {
     
-    private static final int POPULATION_SIZE = 200;
+    private static final int POPULATION_SIZE = 1000;
     private static final int GENERATIONS = 10;
     private static final int CHROMOSOME_LENGTH = 8;
     private static final float CROSSOVER_PROBABILITY = 0.7f;
@@ -26,6 +26,8 @@ public class Configuration {
     public static final int ACTUAL_MAX = 255;
     public static final int NORMALIZED_MIN = 0;
     public static final int NORMALIZED_MAX = 2;
+    public static final String DEFAULT_X_AXIS_TITLE = "x-axis";
+    public static final String DEFAULT_Y_AXIS_TITLE = "y-axis";
 
     public static int getPOPULATION_SIZE() {
         return POPULATION_SIZE;
@@ -63,5 +65,13 @@ public class Configuration {
 
     public static float getCROSSOVER_PROBABILITY() {
         return CROSSOVER_PROBABILITY;
+    }
+    
+    public static String getXaxisTitle() {
+        return getObjectives().size() > 2 ? DEFAULT_X_AXIS_TITLE : getObjectives().get(0).getAxisTitle();
+    }
+    
+    public static String getYaxisTitle() {
+        return getObjectives().size() > 2 ? DEFAULT_Y_AXIS_TITLE : getObjectives().get(1).getAxisTitle();
     }
 }

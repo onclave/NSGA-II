@@ -1,16 +1,12 @@
+/*
+ * This repository / codebase is Open Source and free for use and rewrite.
+ */
 
 import io.onclave.nsga.ii.api.Reporter;
 import io.onclave.nsga.ii.api.Service;
 import io.onclave.nsga.ii.api.Synthesis;
 import io.onclave.nsga.ii.configuration.Configuration;
 import io.onclave.nsga.ii.datastructure.Population;
-
-/*
- * This code file and the codebase/software containing it is 
- * explicitely licensed to Mr. Debabrata Acharya (@onclave)
- * unauthorized use and access of the codebase, parts of the 
- * codebase, software or parts of this software is not allowed.
- */
 
 /**
  *

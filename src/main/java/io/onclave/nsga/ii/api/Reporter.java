@@ -1,22 +1,37 @@
 /*
- * This code file and the codebase/software containing it is 
- * explicitely licensed to Mr. Debabrata Acharya (@onclave)
- * unauthorized use and access of the codebase, parts of the 
- * codebase, software or parts of this software is not allowed.
+ * This repository / codebase is Open Source and free for use and rewrite.
  */
 package io.onclave.nsga.ii.api;
 
+import io.onclave.nsga.ii.configuration.Configuration;
 import io.onclave.nsga.ii.datastructure.Allele;
 import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.Population;
 import java.util.HashMap;
 import java.util.List;
+import org.jfree.ui.RefineryUtilities;
 
 /**
  *
  * @author sajib
  */
 public class Reporter {
+    
+    public static void render2DGraph(final Population population) {
+        
+        if(Configuration.getObjectives().size() > 2) {
+            p("\n\nThis Implementation has more than 2 objectives and cannot be plotted on a 2D graph. Either minimize objectives to 2, or use other plotting implemenataions.\n\n"); return;
+        }
+        
+        GraphPlot graph = new GraphPlot(population);
+                
+        graph.configurePlotter(Configuration.getXaxisTitle(), Configuration.getYaxisTitle());
+        graph.pack();
+
+        RefineryUtilities.centerFrameOnScreen(graph);
+
+        graph.setVisible(true);
+    }
     
     public static void reportPopulation(Population population) {
         

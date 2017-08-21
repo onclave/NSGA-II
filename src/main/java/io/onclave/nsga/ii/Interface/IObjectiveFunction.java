@@ -14,4 +14,5 @@ public interface IObjectiveFunction {
     public double objectiveFunction(double geneVaue);
     public double objectiveFunction(Chromosome chromosome);
     public double objectiveFunction(ParetoObject paretoObject);
+    public String getAxisTitle();
 }

@@ -140,14 +140,7 @@ public class Service {
     
     public static Population nonDominatedPopulationSort(Population population) {
         
-        Population newPopulation = new Population();
-        
-        
         //--TO-DO--
-        
-        
-        
-        
         
         return population;
     }
