@@ -2,6 +2,7 @@
 **an NSGA-II implementation using Java**
 
 **_Original Authors of the Paper_: [Kalyanmoy Deb](http://www.egr.msu.edu/~kdeb/), [Amrit Pratap](https://scholar.google.com/citations?user=E8wJ7G8AAAAJ&hl=en), [Sameer Agarwal](http://ieeexplore.ieee.org/search/searchresult.jsp?searchWithin=%22Authors%22:.QT.S.%20Agarwal.QT.&newsearch=true), [T. Meyarivan](http://ieeexplore.ieee.org/search/searchresult.jsp?searchWithin=%22Authors%22:.QT.T.%20Meyarivan.QT.&newsearch=true)**
+
 _links to original contents:_
 
 * [NSGA-II paper: PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.542.385&rep=rep1&type=pdf)
