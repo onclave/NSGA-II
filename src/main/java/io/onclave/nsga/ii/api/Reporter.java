@@ -12,8 +12,12 @@ import java.util.List;
 import org.jfree.ui.RefineryUtilities;
 
 /**
- *
- * @author sajib
+ * this is the add-on class that communicates with the console and prints appropriate object
+ * details as necessary.
+ * 
+ * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
+ * @version 1.1
+ * @since   1.0
  */
 public class Reporter {
     
@@ -37,7 +41,8 @@ public class Reporter {
         
         int i = 1;
         
-        for(Chromosome chromosome : population.getPopulace()) p("Chromosome " + i++ + " : " + chromosome.getUniqueID() + " | " + chromosome.getFitness());
+        for(Chromosome chromosome : population.getPopulace())
+            p("Chromosome " + i++ + " : " + chromosome.getUniqueID() + " | " + chromosome.getFitness());
     }
     
     public static void reportGeneticCode(Allele[] geneticCode) {

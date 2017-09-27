@@ -6,8 +6,11 @@ package io.onclave.nsga.ii.datastructure;
 import java.util.List;
 
 /**
- *
- * @author sajib
+ * this is a simulation of a population of chromosome known as a populace.
+ * 
+ * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
+ * @version 1.0
+ * @since   0.1
  */
 public class Population {
     

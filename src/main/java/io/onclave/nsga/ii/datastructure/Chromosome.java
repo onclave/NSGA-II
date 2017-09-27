@@ -8,13 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author sajib
+ * this is a simulation of a biological chromosome that contains a genetic code, a fitness value,
+ * a domination rank, an unique ID, and a list of dominated chromosomes.
+ * 
+ * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
+ * @version 1.1
+ * @since   0.1
  */
 public class Chromosome {
     
     public Chromosome() {
-        this(-9999d);
+        this(-Double.MIN_VALUE);
     }
     
     public Chromosome(final double fitness) {
@@ -79,6 +83,10 @@ public class Chromosome {
         return geneticCode;
     }
 
+    /**
+     * the new fitness value is set as soon as a new genetic code is set for a chromosome.
+     * @param   geneticCode     the genetic code that the chromosome carries.
+     */
     public void setGeneticCode(Allele[] geneticCode) {
         this.geneticCode = geneticCode;
         this.setFitness(Service.calculateFitness(geneticCode));

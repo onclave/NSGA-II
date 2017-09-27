@@ -10,22 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author sajib
+ * this is the Configuration file for the algorithm, where all the values are set and the initial
+ * configurations are set and run.
+ * to change any aspect of the algorithm, this file may be tweaked.
+ * 
+ * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
+ * @version 1.0
+ * @since   0.1
  */
 public class Configuration {
     
     private static final int POPULATION_SIZE = 1000;
-    private static final int GENERATIONS = 10;
-    private static final int CHROMOSOME_LENGTH = 8;
+    private static final int GENERATIONS = 50;
+    private static final int CHROMOSOME_LENGTH = 30;
     private static final float CROSSOVER_PROBABILITY = 0.7f;
     private static final float MUTATION_PROBABILITY = 0.03f;
     private static List<IObjectiveFunction> objectives = null;
     
-    public static final int ACTUAL_MIN = 0;
-    public static final int ACTUAL_MAX = 255;
-    public static final int NORMALIZED_MIN = 0;
-    public static final int NORMALIZED_MAX = 2;
+    public static final double ACTUAL_MIN = 0;
+    public static final double ACTUAL_MAX = Math.pow(2, CHROMOSOME_LENGTH) - 1;
+    public static final double NORMALIZED_MIN = 0;
+    public static final double NORMALIZED_MAX = 2;
     public static final String DEFAULT_X_AXIS_TITLE = "x-axis";
     public static final String DEFAULT_Y_AXIS_TITLE = "y-axis";
 
@@ -41,6 +46,10 @@ public class Configuration {
         return CHROMOSOME_LENGTH;
     }
     
+    /**
+     * this method sets the objective functions over which the algorithm is to operate.
+     * it is a list of IObjectionFunction objects.
+     */
     public static void buildObjectives() {
         
         List<IObjectiveFunction> newObjectives = new ArrayList<>();

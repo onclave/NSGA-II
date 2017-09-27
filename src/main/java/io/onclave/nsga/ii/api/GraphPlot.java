@@ -8,6 +8,7 @@ import io.onclave.nsga.ii.datastructure.Population;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
+import java.util.Random;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -19,12 +20,17 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
 /**
- *
- * @author sajib
+ * this class is the under-the-hood service layer for generating the graphs using jFreeCharts library.
+ * 
+ * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
+ * @version 1.1
+ * @since   1.0
  */
 public class GraphPlot extends ApplicationFrame {
     
     private final static XYSeriesCollection DATASET = new XYSeriesCollection();
+    private final static XYSeriesCollection MULTIPLE_DATASET = new XYSeriesCollection();
+    private final static XYLineAndShapeRenderer MULTIPLE_RENDERER = new XYLineAndShapeRenderer();
     private final static String APPLICATION_TITLE = "NSGA-II";
     private static String GRAPH_TITLE = "PARETO FRONT";
     private static String KEY = "Pareto Front";
@@ -32,6 +38,11 @@ public class GraphPlot extends ApplicationFrame {
     private static int DIMENSION_Y = 600;
     private static Paint COLOR = Color.RED;
     private static float STROKE_THICKNESS = 2.0f;
+    private static final Random RANDOM = new Random();
+    
+    public GraphPlot() {
+        super(APPLICATION_TITLE);
+    }
     
     public GraphPlot(Population population) {
         
@@ -39,13 +50,42 @@ public class GraphPlot extends ApplicationFrame {
         createDataset(population);
     }
     
-    private void createDataset(final Population population) {
+    public void prepareMultipleDataset(final Population population, final int datasetIndex, final String key) {
         
-        final XYSeries paretoFront = new XYSeries(KEY);
+        createDataset(population, key, MULTIPLE_DATASET);
+        
+        MULTIPLE_RENDERER.setSeriesPaint(datasetIndex, new Color(RANDOM.nextFloat(), RANDOM.nextFloat(), RANDOM.nextFloat()));
+        MULTIPLE_RENDERER.setSeriesStroke(datasetIndex, new BasicStroke(STROKE_THICKNESS));
+    }
+    
+    public void configureMultiplePlotter(final String x_axis, final String y_axis, final String graphTitle) {
+        
+        JFreeChart xyLineChart = ChartFactory.createXYLineChart(graphTitle, x_axis, y_axis, MULTIPLE_DATASET, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel chartPanel = new ChartPanel(xyLineChart);
+        
+        chartPanel.setPreferredSize(new java.awt.Dimension(DIMENSION_X, DIMENSION_Y));
+        
+        final XYPlot plot = xyLineChart.getXYPlot();
+        
+        plot.setRenderer(MULTIPLE_RENDERER);
+        setContentPane(chartPanel);
+    }
+    
+    private void createDataset(final Population population) {
+        createDataset(population, KEY);
+    }
+    
+    private void createDataset(final Population population, String key) {
+        createDataset(population, key, DATASET);
+    }
+    
+    private void createDataset(final Population population, String key, XYSeriesCollection dataset) {
+        
+        final XYSeries paretoFront = new XYSeries(key);
         
         population.getPopulace().stream().forEach((c) -> { paretoFront.add(Configuration.getObjectives().get(0).objectiveFunction(c), Configuration.getObjectives().get(1).objectiveFunction(c)); });
         
-        DATASET.addSeries(paretoFront);
+        dataset.addSeries(paretoFront);
     }
     
     public void configurePlotter(final String x_axis, final String y_axis) {

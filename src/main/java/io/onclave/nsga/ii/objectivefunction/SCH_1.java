@@ -8,8 +8,11 @@ import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.ParetoObject;
 
 /**
- *
- * @author sajib
+ * the SCH objective function [f(x) = x^2]
+ * 
+ * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
+ * @version 1.0
+ * @since   0.1
  */
 public class SCH_1 implements IObjectiveFunction {
     

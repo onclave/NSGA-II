@@ -4,8 +4,12 @@
 package io.onclave.nsga.ii.datastructure;
 
 /**
- *
- * @author sajib
+ * this is a simulation of an allele in a biological chromosome that contains a gene value.
+ * an array of alleles create the genetic code for the chromosome.
+ * 
+ * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
+ * @version 1.0
+ * @since   0.1
  */
 public class Allele {
     
