@@ -427,7 +427,7 @@ public class Service {
      */
     private static void randomizedQuickSort(ParetoObject[] paretoArray, int head, int tail, IObjectiveFunction objective) {
         
-        if(tail < head) {
+        if(head < tail) {
             
             int pivot = randomizedPartition(paretoArray, head, tail, objective);
             

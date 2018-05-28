@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class Configuration {
     
-    private static final int POPULATION_SIZE = 1000;
+    private static final int POPULATION_SIZE = 800;
     private static final int GENERATIONS = 50;
-    private static final int CHROMOSOME_LENGTH = 30;
+    private static final int CHROMOSOME_LENGTH = 20;
     private static final float CROSSOVER_PROBABILITY = 0.7f;
     private static final float MUTATION_PROBABILITY = 0.03f;
     private static List<IObjectiveFunction> objectives = null;
