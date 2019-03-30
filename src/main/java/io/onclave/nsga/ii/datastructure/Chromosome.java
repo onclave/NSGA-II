@@ -1,102 +1,133 @@
 /*
- * This repository / codebase is Open Source and free for use and rewrite.
+ * This code / file / algorithm is completely free to use and modify as necessary.
+ * Any attribution is welcome and highly appriciated.
  */
 package io.onclave.nsga.ii.datastructure;
 
-import io.onclave.nsga.ii.api.Service;
+import io.onclave.nsga.ii.api.Configuration;
+import io.onclave.nsga.ii.interfaces.IObjectiveFunction;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * this is a simulation of a biological chromosome that contains a genetic code, a fitness value,
- * a domination rank, an unique ID, and a list of dominated chromosomes.
+ * 
  * 
  * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
- * @version 1.1
- * @since   0.1
+ * @version 2.0
+ * @since   2.0
  */
 public class Chromosome {
     
-    public Chromosome() {
-        this(-Double.MIN_VALUE);
-    }
+    private final Allele[] geneticCode;
+    private final List<Double> objectiveValues = new ArrayList<>();
+    private double crowdingDistance = 0;
+    private int dominationCount = 0;
+    private List<Chromosome> dominatedChromosomes = new ArrayList<>();
+    private int rank;
+    private final List<double[]> selectedGeneMatrix = new ArrayList<>();
+    private double[] geneExpressionColumn;
+    private ConfusionMatrix confusionMatrix;
     
-    public Chromosome(final double fitness) {
-        this(null, fitness, "");
-    }
-    
-    public Chromosome(final Allele[] geneticCode, final double fitness, final String extraInfo) {
-        this(geneticCode, fitness, extraInfo, 0);
+    private Chromosome(final Chromosome chromosome) {
         
+        this.geneticCode = new Allele[Configuration.CHROMOSOME_LENGTH];
+        
+        for(int i = 0; i < Configuration.CHROMOSOME_LENGTH; i++) this.geneticCode[i] = new Allele(chromosome.getGeneticCode()[i].getGene());
+        for(int i = 0; i < Configuration.objectives.size(); i++) this.objectiveValues.add(chromosome.getObjectiveValues().get(i));
     }
     
-    public Chromosome(final Allele[] geneticCode, final double fitness, final String extraInfo, final int rank) {
+    public Chromosome(final Allele[] geneticCode) {
         
+        int columnCount = 0;
+        this.rank = Integer.MAX_VALUE;
         this.geneticCode = geneticCode;
-        this.fitness = fitness;
-        this.extraInfo = extraInfo;
-        this.dominationRank = rank;
-        this.uniqueID = Long.toString(System.currentTimeMillis()) + "-" + Integer.toString(Service.generateRandomInt());
-        this.dominatedChromosomes = new ArrayList<>();
+        
+        for(int index = 0; index < this.geneticCode.length; index++) if(geneticCode[index].getGene()) {
+            
+            int j = 0;
+            this.geneExpressionColumn = new double[Configuration.DATA_SAMPLE_COUNT];
+            
+            for(GeneSample geneSample : Configuration.PROCESSED_MICROARRAY_GENE_EXPRESSION.getGeneSamples()) this.geneExpressionColumn[j++] = geneSample.getGeneExpressions()[index].getGeneExpressionValue();
+            
+            this.selectedGeneMatrix.add(columnCount++, geneExpressionColumn);
+        }
+        
+        this.confusionMatrix = new ConfusionMatrix(selectedGeneMatrix);
+        
+        for(int j = 0; j < Configuration.objectives.size(); j++) switch(Configuration.objectives.get(j).getRequirement()) {
+            
+            case IObjectiveFunction.REQUIRES_CONFUSION_MATRIX: this.objectiveValues.add(j, Configuration.objectives.get(j).getObjectiveValue(this.confusionMatrix)); break;
+            case IObjectiveFunction.REQUIRES_SELECTED_GENE_MATRIX: this.objectiveValues.add(j, Configuration.objectives.get(j).getObjectiveValue(this.selectedGeneMatrix)); break;
+        }
+        
     }
     
-    private Allele[] geneticCode;
-    private double fitness;
-    private String extraInfo;
-    private int dominationRank = 0;
-    private String uniqueID;
-    private List<Chromosome> dominatedChromosomes;
+    public double getCrowdingDistance() {
+        return crowdingDistance;
+    }
+
+    public void setCrowdingDistance(double crowdingDistance) {
+        this.crowdingDistance = crowdingDistance;
+    }
+
+    public List<Double> getObjectiveValues() {
+        return objectiveValues;
+    }
+
+    public int getDominationCount() {
+        return dominationCount;
+    }
+
+    public void incrementDominationCount(int incrementValue) {
+        this.dominationCount += incrementValue;
+    }
 
     public List<Chromosome> getDominatedChromosomes() {
         return dominatedChromosomes;
     }
 
-    public void setDominatedChromosomes(List<Chromosome> dominatedChromosomes) {
-        this.dominatedChromosomes = dominatedChromosomes;
+    public void setDominatedChromosome(final Chromosome chromosome) {
+        this.dominatedChromosomes.add(chromosome);
     }
 
-    public String getUniqueID() {
-        return uniqueID;
+    public int getRank() {
+        return rank;
     }
 
-    public void setUniqueID(String uniqueID) {
-        this.uniqueID = uniqueID;
-    }
-
-    public int getDominationRank() {
-        return dominationRank;
-    }
-
-    public void setDominationRank(int dominationRank) {
-        this.dominationRank = dominationRank;
-    }
-
-    public String getExtraInfo() {
-        return extraInfo;
-    }
-
-    public void setExtraInfo(String extraInfo) {
-        this.extraInfo = extraInfo;
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     public Allele[] getGeneticCode() {
         return geneticCode;
     }
 
-    /**
-     * the new fitness value is set as soon as a new genetic code is set for a chromosome.
-     * @param   geneticCode     the genetic code that the chromosome carries.
-     */
-    public void setGeneticCode(Allele[] geneticCode) {
-        this.geneticCode = geneticCode;
-        this.setFitness(Service.calculateFitness(geneticCode));
+    public List<double[]> getSelectedGeneMatrix() {
+        return selectedGeneMatrix;
     }
-
-    public double getFitness() {
-        return fitness;
+    
+    public void reset() {
+        
+        this.dominationCount = 0;
+        this.rank = Integer.MAX_VALUE;
+        this.dominatedChromosomes = new ArrayList<>();
     }
-
-    public void setFitness(double fitness) {
-        this.fitness = fitness;
+    
+    public Chromosome getCopy() {
+        return new Chromosome(this);
+    }
+    
+    @Override
+    public String toString() {
+        
+        String result = "GENETIC CODE >>>> ";
+        
+        for(Allele allele : this.geneticCode) result += "[ " + allele.toString() + " ]";
+        
+        for(int j = 0; j < Configuration.objectives.size(); j++) result += "\n\n" + Configuration.objectives.get(j).objectiveFunctionTitle() + " >>>> " + this.objectiveValues.get(j);
+        
+        result += "\n\nCROWDING DISTANCE : " + this.crowdingDistance + "\n\nRANK : " + this.rank;
+        
+        return result;
     }
 }

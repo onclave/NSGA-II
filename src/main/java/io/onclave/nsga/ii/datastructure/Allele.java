@@ -1,37 +1,30 @@
 /*
- * This repository / codebase is Open Source and free for use and rewrite.
+ * This code / file / algorithm is completely free to use and modify as necessary.
+ * Any attribution is welcome and highly appriciated.
  */
 package io.onclave.nsga.ii.datastructure;
 
 /**
- * this is a simulation of an allele in a biological chromosome that contains a gene value.
- * an array of alleles create the genetic code for the chromosome.
+ * 
  * 
  * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
- * @version 1.0
- * @since   0.1
+ * @version 2.0
+ * @since   2.0
  */
 public class Allele {
     
-    public Allele() {
-        this(false);
-    }
+    private final boolean gene;
     
     public Allele(final boolean gene) {
         this.gene = gene;
     }
     
-    private boolean gene;
-
     public boolean getGene() {
         return gene;
     }
-
-    public void setGene(boolean gene) {
-        this.gene = gene;
-    }
     
-    public void bitFlip() {
-        this.gene = !this.gene;
+    @Override
+    public String toString() {
+        return (this.gene ? "1" : "0");
     }
 }

@@ -1,34 +1,27 @@
 /*
- * This repository / codebase is Open Source and free for use and rewrite.
+ * This code / file / algorithm is completely free to use and modify as necessary.
+ * Any attribution is welcome and highly appriciated.
  */
 package io.onclave.nsga.ii.datastructure;
 
 import java.util.List;
 
 /**
- * this is a simulation of a population of chromosome known as a populace.
+ * 
  * 
  * @author  Debabrata Acharya <debabrata.acharya@icloud.com>
- * @version 1.0
- * @since   0.1
+ * @version 2.0
+ * @since   2.0
  */
 public class Population {
     
-    public Population() {
-        this(null);
-    }
+    private final List<Chromosome> populace;
     
     public Population(final List<Chromosome> populace) {
         this.populace = populace;
     }
-    
-    private List<Chromosome> populace;
 
     public List<Chromosome> getPopulace() {
         return populace;
-    }
-
-    public void setPopulace(List<Chromosome> populace) {
-        this.populace = populace;
     }
 }

@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}This code / file / algorithm is completely free to use and modify as necessary.
+${licensePrefix}Any attribution is welcome and highly appriciated.
+<#if licenseLast??>
+${licenseLast}
+</#if>
