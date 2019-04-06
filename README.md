@@ -24,6 +24,6 @@ This is **v2** of the algorithm implementation. This reference implementation ha
 
 <br/>
 
-The reference **v1** implemention can be found in the _v1_ folder. The _README_ of that implementation can be found in that folder as *README.v1.md*
+The reference **v1** implemention can be found in the [here](https://github.com/onclave/NSGA-II/tree/master/v1). The _README_ of that implementation can be found [here](https://github.com/onclave/NSGA-II/blob/master/v1/README.md).
 
 The _README_ document of **v2** is still incomplete and under progress. Code commenting of **v2** is also under progress and not all code is commented properly. This shall be done shortly. In the mean time, if you are unable to understand any part of the code, feel free to open an _issue_ about it and I shall try to resolve it.
