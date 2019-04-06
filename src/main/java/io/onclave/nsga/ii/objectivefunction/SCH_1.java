@@ -14,20 +14,17 @@ import io.onclave.nsga.ii.interfaces.IObjectiveFunction;
  * @since   0.1
  */
 public class SCH_1 implements IObjectiveFunction {
+    
+    private static final String OBJECTIVE_TITLE = "pow(x, 2)";
 
     @Override
     public String objectiveFunctionTitle() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return SCH_1.OBJECTIVE_TITLE;
     }
 
     @Override
-    public int getRequirement() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public double getObjectiveValue() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double getObjectiveValue(final double fitness) {
+        return Math.pow(fitness, 2);
     }
     
 }

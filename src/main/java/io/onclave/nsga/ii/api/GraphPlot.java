@@ -95,7 +95,10 @@ public class GraphPlot extends ApplicationFrame {
         
         final XYSeries paretoFront = new XYSeries(key);
         
-        population.getPopulace().stream().forEach((chromosome) -> { System.out.println("obj1 : " + chromosome.getObjectiveValues().get(0) + " | obj2: " + chromosome.getObjectiveValues().get(1)); });
+        population.getPopulace().stream().forEach((chromosome) -> {
+            System.out.println(Configuration.objectives.get(0).objectiveFunctionTitle() + " : " + chromosome.getObjectiveValues().get(0) + " | "
+                                + Configuration.objectives.get(1).objectiveFunctionTitle() + " : " + chromosome.getObjectiveValues().get(1));
+        });
         
         population.getPopulace().stream().forEach((chromosome) -> { paretoFront.add(chromosome.getObjectiveValues().get(0), chromosome.getObjectiveValues().get(1)); });
         

@@ -66,9 +66,11 @@ public class Reporter {
     
     public static void reportConfiguration() {
         
-        System.out.println("NUMBER OF GENES TO WORK WITH : " + Configuration.NUMBER_OF_GENES);
+        System.out.println("CHROMOSOME LENGTH TO WORK WITH : " + Configuration.CHROMOSOME_LENGTH);
         System.out.println("POPULATION SIZE : " + Configuration.POPULATION_SIZE);
         System.out.println("NUMBER OF GENERATIONS : " + Configuration.GENERATIONS);
+        System.out.println("X-AXIS : " + Configuration.X_AXIS_TITLE);
+        System.out.println("Y-AXIS : " + Configuration.Y_AXIS_TITLE);
     }
     
     public static void reportIOException() {

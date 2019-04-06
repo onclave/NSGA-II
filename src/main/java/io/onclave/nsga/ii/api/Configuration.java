@@ -27,23 +27,25 @@ public class Configuration {
      */
     private Configuration() {}
     
-    public static int NUMBER_OF_GENES = 100;
-    public static int POPULATION_SIZE = 30;
-    public static int GENERATIONS = 10;
-    public static String DEFAULT_X_AXIS_TITLE = "X-AXIS";
-    public static String DEFAULT_Y_AXIS_TITLE = "Y-AXIS";
+    public static int POPULATION_SIZE = 100;
+    public static int GENERATIONS = 25;
+    public static int CHROMOSOME_LENGTH = 20;
     
+    public static String X_AXIS_TITLE = "X-AXIS";
+    public static String Y_AXIS_TITLE = "Y-AXIS";
+    
+    public static final double ACTUAL_MIN = 0;
+    public static double ACTUAL_MAX = 0;
+    public static final double NORMALIZED_MIN = 0;
+    public static final double NORMALIZED_MAX = 2;
     public static final float CROSSOVER_PROBABILITY = 0.7f;
     public static final float MUTATION_PROBABILITY = 0.03f;
-    
-    public static String SELECTED_DATASET;
-    public static int CHROMOSOME_LENGTH;
-    public static int DATA_SAMPLE_COUNT;
-    public static int UNPROCESSED_GENE_COUNT;
     
     public static List<IObjectiveFunction> objectives = null;
     
     public static void configure() {
+        
+        Configuration.buildObjectives();
         
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         
@@ -55,6 +57,7 @@ public class Configuration {
                 
                 case "1":
                     
+                    Configuration.setDefaultAxisTitles();
                     Reporter.reportDefaultConfiguration();
                     break;
                 case "2":
@@ -70,9 +73,7 @@ public class Configuration {
                 default: Reporter.reportWrongInput(); break;
             }
             
-            Configuration.CHROMOSOME_LENGTH = Configuration.NUMBER_OF_GENES;
-            
-            Configuration.buildObjectives();
+            Configuration.ACTUAL_MAX = Math.pow(2, CHROMOSOME_LENGTH) - 1;
         } catch(IOException e) {
             Reporter.reportIOException();
         }
@@ -83,11 +84,17 @@ public class Configuration {
     }
     
     public static String getXaxisTitle() {
-        return Configuration.DEFAULT_X_AXIS_TITLE;
+        return Configuration.X_AXIS_TITLE;
     }
     
     public static String getYaxisTitle() {
-        return Configuration.DEFAULT_Y_AXIS_TITLE;
+        return Configuration.Y_AXIS_TITLE;
+    }
+    
+    private static void setDefaultAxisTitles() {
+        
+        Configuration.X_AXIS_TITLE = Configuration.objectives.get(0).objectiveFunctionTitle();
+        Configuration.Y_AXIS_TITLE = Configuration.objectives.get(1).objectiveFunctionTitle();
     }
     
     private static void setCustomAxisTitles(final BufferedReader bufferedReader) throws IOException {
@@ -99,10 +106,10 @@ public class Configuration {
             case "y":
                 
                 System.out.print("\nEnter X-Axis Title: ");
-                Configuration.DEFAULT_X_AXIS_TITLE = bufferedReader.readLine();
+                Configuration.X_AXIS_TITLE = bufferedReader.readLine();
                 
                 System.out.print("Enter Y-Axis Title: ");
-                Configuration.DEFAULT_Y_AXIS_TITLE = bufferedReader.readLine();
+                Configuration.Y_AXIS_TITLE = bufferedReader.readLine();
                 
                 break;
             case "n": break;
@@ -112,8 +119,8 @@ public class Configuration {
     
     private static void setCustomConfiguration(final BufferedReader bufferedReader) throws IOException {
         
-        System.out.print("Enter the number genes to work with: ");
-        Configuration.NUMBER_OF_GENES = Integer.parseInt(bufferedReader.readLine());
+        System.out.print("Enter the chromosome length to work with: ");
+        Configuration.CHROMOSOME_LENGTH = Integer.parseInt(bufferedReader.readLine());
 
         System.out.print("Enter population size: ");
         Configuration.POPULATION_SIZE = Integer.parseInt(bufferedReader.readLine());

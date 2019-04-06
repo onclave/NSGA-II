@@ -14,6 +14,5 @@ package io.onclave.nsga.ii.interfaces;
 public interface IObjectiveFunction {
     
     public String objectiveFunctionTitle();
-    public int getRequirement();
-    public double getObjectiveValue();
+    public double getObjectiveValue(double fitness);
 }
