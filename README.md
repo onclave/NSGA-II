@@ -22,7 +22,7 @@ This is **v2** of the algorithm implementation. This reference implementation ha
 * Provides a simple interactive console while running the algorithm.
 * Updated dependencies.
 
-The reference **v1** implemention can be found in the [here](https://github.com/onclave/NSGA-II/tree/master/v1). The _README_ of that implementation can be found [here](https://github.com/onclave/NSGA-II/blob/master/v1/README.md).
+The reference **v1** implemention can be found [here](https://github.com/onclave/NSGA-II/tree/master/v1). The _README_ of that implementation can be found [here](https://github.com/onclave/NSGA-II/blob/master/v1/README.md).
 
 **note:** Code commenting of **v2** is under progress and not all code is commented properly. This shall be done shortly. In the mean time, if you are unable to understand any part of the code, feel free to open an _issue_ about it and I shall try to resolve it.
 
@@ -66,7 +66,7 @@ To change various general configurations within the code, please refer to **Conf
 
 * **POPULATION_SIZE** : population size at each generation. Default is 100.
 * **GENERATIONS** : number of generations the algorithm should run. Default is 25.
-* **CHROMOSOME_LENGTH** : chromosome length _(n)_ in bits. Default is 20. Please note that, changing this to a very large value may throw a _NumberFormatException_ since the _n_ bit binary string is directly converted to a corresponding double value. A relatively large binary string may throw exceptions during conversions. For example, _n = 8_ bit binary string keeps the value within 0 to 255.
+* **CHROMOSOME_LENGTH** : chromosome length _(n)_ in bits. Default is 20. Please note that, changing this to a very large value may throw a _NumberFormatException_ since the _n_ bit binary string is directly converted to a corresponding double value **to calculate the fitness value of each chromosome**. A relatively large binary string may throw exceptions during conversions. For example, _n = 8_ bit binary string keeps the value within 0 to 255. **This may not be a problem if you decide to change how you might want to calculate your fitness value for each chromosome**. By default, the fitness value is calculated for each chromosome as soon as a new chromosome is synthesized within the **Chromosome#Chromosome(Allele[])** constructor. Change this to use your own implementation.
 * **CROSSOVER_PROBABILITY** : Default is 0.7.
 * **MUTATION_PROBABILITY** : Default is 0.03.
 * The binary strings generated as genetic code for each chromosome is converted to the corresponding double value which is the fitness of the chromosomes. This value is then normalized using min-max normalisation between 0 to 2. Change the variables **ACTUAL_MIN**, **ACTUAL_MAX**, **NORMALIZED_MIN**, **NORMALIZED_MAX** for other values.
