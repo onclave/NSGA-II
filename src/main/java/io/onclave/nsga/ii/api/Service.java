@@ -177,12 +177,12 @@ public class Service {
             
             if(populace.get(j).getCrowdingDistance() >= pivot) {
                 
-                Service.swapForRank(populace, pivotIndex, j);
+                Service.swapForCrowdingDistance(populace, pivotIndex, j);
                 ++pivotIndex;
             }
         }
         
-        Service.swapForRank(populace, pivotIndex, tail);
+        Service.swapForCrowdingDistance(populace, pivotIndex, tail);
         
         return pivotIndex;
     }

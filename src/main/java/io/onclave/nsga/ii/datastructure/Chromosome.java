@@ -24,7 +24,7 @@ public class Chromosome {
     private final Allele[] geneticCode;
     private int dominationCount = 0;
     private double fitness;
-    private int rank;
+    private int rank = 1;
     
     private Chromosome(final Chromosome chromosome) {
         

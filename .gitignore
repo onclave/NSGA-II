@@ -2,3 +2,8 @@
 .DS_Store
 licenseheader.txt
 nb-configuration.xml
+.classpath
+.idea/
+.project
+.settings/
+NSGA-II.iml
