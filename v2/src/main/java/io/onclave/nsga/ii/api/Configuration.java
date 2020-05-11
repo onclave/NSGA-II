@@ -7,6 +7,7 @@ package io.onclave.nsga.ii.api;
 import io.onclave.nsga.ii.interfaces.IObjectiveFunction;
 import io.onclave.nsga.ii.objectivefunction.SCH_1;
 import io.onclave.nsga.ii.objectivefunction.SCH_2;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

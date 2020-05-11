@@ -11,10 +11,11 @@ import io.onclave.nsga.ii.configuration.Configuration;
 import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.ParetoObject;
 import io.onclave.nsga.ii.datastructure.Population;
+import org.jfree.ui.RefineryUtilities;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * This is the starting point of the main NSGA-II algorithm.

@@ -6,6 +6,7 @@ package io.onclave.nsga.ii.configuration;
 import io.onclave.nsga.ii.Interface.IObjectiveFunction;
 import io.onclave.nsga.ii.objectivefunction.SCH_1;
 import io.onclave.nsga.ii.objectivefunction.SCH_2;
+
 import java.util.ArrayList;
 import java.util.List;
 

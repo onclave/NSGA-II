@@ -4,14 +4,11 @@
  */
 package io.onclave.nsga.ii.algorithm;
 
-import io.onclave.nsga.ii.api.Configuration;
-import io.onclave.nsga.ii.api.GraphPlot;
-import io.onclave.nsga.ii.api.NSGAII;
-import io.onclave.nsga.ii.api.Reporter;
-import io.onclave.nsga.ii.api.Synthesis;
+import io.onclave.nsga.ii.api.*;
 import io.onclave.nsga.ii.datastructure.Population;
-import java.io.IOException;
 import org.jfree.ui.RefineryUtilities;
+
+import java.io.IOException;
 
 /**
  * This is the starting point of the main NSGA-II algorithm.

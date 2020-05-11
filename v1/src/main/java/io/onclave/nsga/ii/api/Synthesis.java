@@ -7,6 +7,7 @@ import io.onclave.nsga.ii.configuration.Configuration;
 import io.onclave.nsga.ii.datastructure.Allele;
 import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.Population;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

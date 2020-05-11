@@ -9,6 +9,7 @@ import io.onclave.nsga.ii.datastructure.Allele;
 import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.ParetoObject;
 import io.onclave.nsga.ii.datastructure.Population;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

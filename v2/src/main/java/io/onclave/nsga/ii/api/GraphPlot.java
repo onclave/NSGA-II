@@ -5,10 +5,6 @@
 package io.onclave.nsga.ii.api;
 
 import io.onclave.nsga.ii.datastructure.Population;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Paint;
-import java.util.Random;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -18,6 +14,9 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
+
+import java.awt.*;
+import java.util.Random;
 
 /**
  * this class is the under-the-hood service layer for generating the graphs using jFreeCharts library.

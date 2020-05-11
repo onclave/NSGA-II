@@ -6,6 +6,7 @@ package io.onclave.nsga.ii.api;
 
 import io.onclave.nsga.ii.datastructure.Allele;
 import io.onclave.nsga.ii.datastructure.Chromosome;
+
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 

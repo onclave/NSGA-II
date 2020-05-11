@@ -1,0 +1,2 @@
+public class Generator {
+}

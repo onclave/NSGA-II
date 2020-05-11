@@ -7,9 +7,10 @@ import io.onclave.nsga.ii.configuration.Configuration;
 import io.onclave.nsga.ii.datastructure.Allele;
 import io.onclave.nsga.ii.datastructure.Chromosome;
 import io.onclave.nsga.ii.datastructure.Population;
+import org.jfree.ui.RefineryUtilities;
+
 import java.util.HashMap;
 import java.util.List;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * this is the add-on class that communicates with the console and prints appropriate object
