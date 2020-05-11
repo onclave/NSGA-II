@@ -34,7 +34,7 @@ This is a fully customizable implementation of the NSGA-II algorithm, made as ge
  
  By default, the package provides a default implementation of every plugin and hence the package can be run with just one line of code as a PoC.
  
- ```
+ ```java
 (new NSGA2()).run();
  ```
 
