@@ -29,15 +29,24 @@ The reference **v1** implementation can be found [here](https://github.com/oncla
 
 ### Documentation
 
-For full documentation, visit the [Wiki](https://github.com/onclave/NSGA-II/wiki).
+This is a fully customizable implementation of the NSGA-II algorithm, made as generic as possible. This documentation assumes you have basic understanding of the NSGA-II algorithm. Apart from the core concepts of the algorithm, everything else in this
+ package can be implemented as per the user's choice and plugged into the algorithm dynamically.
+ 
+ By default, the package provides a default implementation of every plugin and hence the package can be run with just one line of code as a PoC.
+ 
+ ```
+(new NSGA2()).run();
+ ```
+
+For more information, visit the [Wiki](https://github.com/onclave/NSGA-II/wiki)
+
+For full documentation, visit the [Documentation Wiki](https://github.com/onclave/NSGA-II/wiki/Documentation).
 
 ### Using it in your project
 
 This package shall be published to maven shortly. Till then you can use the source package directly in your project.
 
-### Getting Started
-
-_demos in progess_
+### [Getting Started](https://github.com/onclave/NSGA-II/wiki/Getting-Started)
 
 ### Contributing
 
