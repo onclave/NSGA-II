@@ -4,9 +4,48 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <name>NSGA-II</name>
+
     <groupId>com.debacharya</groupId>
     <artifactId>nsgaii</artifactId>
     <version>3.0-SNAPSHOT</version>
+
+    <inceptionYear>2019</inceptionYear>
+    <url>https://debacharya.com/nsgaii</url>
+
+    <description>
+        An NSGA-II implementation using Java. This implementation of NSGA-II algorithm is in pure reference to the
+        original published paper. This is not an effort to convert the originally implemented C code in Java.
+        The original C code by the authors has not be referred to while writing this implementation.
+        This is a fully customizable implementation of the NSGA-II algorithm, made as generic as possible.
+        This documentation assumes you have basic understanding of the NSGA-II algorithm. Apart from the core concepts
+        of the algorithm, everything else in this package can be implemented as per the user's choice and plugged
+        into the algorithm dynamically. Since NSGA-II is more like a set of protocols to follow as an algorithm rather
+        than a concrete implementation of every aspect, this package has been re-written from scratch keeping complete
+        customizability in mind. Apart from the core concepts of the algorithm, everything is considered to be a plugin
+        external to the algorithm that can be implemented by the user and dynamically plugged into the algorithm during
+        runtime as needed. This opens up the possibility of the package to be used simply as a PoC or be converted into
+        something much more complex according to the users needs.
+    </description>
+
+    <issueManagement>
+        <url>https://github.com/onclave/NSGA-II/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <name>Debabrata Acharya</name>
+            <email>debabrata.acharya@icloud.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/onclave/NSGA-II/blob/master/LICENSE</url>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>
@@ -20,4 +59,10 @@
             <version>1.0.24</version>
         </dependency>
     </dependencies>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>13</maven.compiler.source>
+        <maven.compiler.target>13</maven.compiler.target>
+    </properties>
 </project>
