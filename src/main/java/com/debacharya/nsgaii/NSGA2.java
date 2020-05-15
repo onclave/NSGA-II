@@ -6,6 +6,12 @@ import com.debacharya.nsgaii.datastructure.Population;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An instance of this class is used to run the NSGA-II algorithm. This class defines the core algorithm of NSGA-II.
+ * Calling the `run()` method on an instance of `NSGA2` gets the algorithm running. It requires an instance of `Configuration`
+ * class to run, which describes all the configuration required for that run. The `Configuration` class is described later in
+ * the documentation.
+ */
 public class NSGA2 {
 
 	public static final int DOMINANT = 1;
@@ -14,14 +20,31 @@ public class NSGA2 {
 
 	private final Configuration configuration;
 
+	/**
+	 * creates an instance of `NSGA2` with a default configuration object that provides a default implementation of every plugin
+	 * needed by the algorithm to run. While this constructor is not of much use to the user, but this helps run a proof-of-concept
+	 * or the algorithm itself with all the default plugins filled in.
+	 */
 	public NSGA2() {
 		this.configuration = new Configuration();
 	}
 
+	/**
+	 * creates an instance of `NSGA2` by taking a configuration object as parameter.
+	 * This will be usually the most useful constructor for `NSGA2` for the user.
+	 * The user can configure his / her plugins to the liking and then pass it to the `NSGA2`
+	 * constructor for the algorithm to be setup according to the users needs.
+	 */
 	public NSGA2(Configuration configuration) {
 		this.configuration = configuration;
 	}
 
+	/**
+	 * Runs the actual NSGA-II core algorithm. It returns the Pareto Front or the last child as a `Population` object.
+	 * This needs to be called on an instance of `NSGA2` to run the actual algorithm.
+	 *
+	 * @return	the final population as the Pareto Front
+	 */
 	public Population run() {
 
 		if(!this.configuration.isSetup())
@@ -77,6 +100,19 @@ public class NSGA2 {
 		return child;
 	}
 
+	/**
+	 * This method takes a `Population` object and basically performs all the operations needed to be performed on the parent
+	 * population in each generation. It executes the following operations on the population instance in order.
+	 *
+	 * - It calculates the objective values of all the chromosomes in the population based on the objective functions set
+	 *	in the `Configuration` instance.
+	 * - It then runs fast non-dominated sort on the population as defined in `NSGA-II paper [DOI: 10.1109/4235.996017] Section III Part A.`
+	 * - It then assigns crowding distance to each chromosome.
+	 * - Finally, it sorts the chromosomes in the population based on its assigned rank.
+	 *
+	 * @param	population	the population instance to undergo the above steps
+	 * @return				the same population instance that was passed as an argument
+	 */
 	public Population preparePopulation(Population population) {
 
 		Service.calculateObjectiveValues(population);
@@ -92,6 +128,15 @@ public class NSGA2 {
 		return population;
 	}
 
+	/**
+	 * This method takes a `Population` of size `2N` (_a combination of parent and child, both of size `N`,
+	 * according to the originally proposed algorithm_) and returns a new `Population` instance of size `N` by
+	 * selecting the first `N` chromosomes from the combined population, based on their rank. If it has to choose `M` chromosomes
+	 * of rank `N` such that `M > N`, it then sorts the `M` chromosomes based on their crowding distance.
+	 *
+	 * @param	combinedPopulation	the combined population of parent and child of size 2N
+	 * @return						the new population of size N chosen from the combined population passed as parameter
+	 */
 	public Population getChildFromCombinedPopulation(Population combinedPopulation) {
 
 		int lastNonDominatedSetRank = combinedPopulation.get(this.configuration.getPopulationSize() - 1).getRank();
@@ -161,7 +206,7 @@ public class NSGA2 {
 	 * NSGA-II paper [DOI: 10.1109/4235.996017] Section III Part B.
 	 * this ensures diversity preservation.
 	 *
-	 * @param   population   the population whose crowding distances are to be calculated
+	 * @param   population   the population whose crowding distances are to be calculated.
 	 */
 	public void crowdingDistanceAssignment(Population population) {
 
@@ -198,6 +243,18 @@ public class NSGA2 {
 		}
 	}
 
+	/**
+	 * This method checks whether one chromosome dominates the other chromosome or not. While the actual domination
+	 * logic has been described in the `isDominant(Chromosome, Chromosome)` method, the `dominates(Chromosome, Chromosome)
+	 * method returns one among the three values based on whether chromosome1 is dominant over chromosome2,
+	 * or is inferior to chromosome2 or whether both of them are non-dominating, by returning
+	 * `com.debacharya.nsgaii.NSGA2.DOMINANT`, `com.debacharya.nsgaii.NSGA2.INFERIOR` or
+	 * `com.debacharya.nsgaii.NSGA2.NON_DOMINATED` respectively.
+	 *
+	 * @param	chromosome1	the chromosome to check whether it is dominating, inferior or non-dominated
+	 * @param	chromosome2	the chromosome against which chromosome1 is checked
+	 * @return				either NSGA2.DOMINANT, NSGA2.INFERIOR or NSGA2.NON_DOMINATED
+	 */
 	public int dominates(Chromosome chromosome1, Chromosome chromosome2) {
 
 		if(this.isDominant(chromosome1, chromosome2)) return NSGA2.DOMINANT;
