@@ -8,7 +8,8 @@
 
     <groupId>com.debacharya</groupId>
     <artifactId>nsgaii</artifactId>
-    <version>3.0-SNAPSHOT</version>
+    <version>3.0</version>
+    <packaging>jar</packaging>
 
     <inceptionYear>2019</inceptionYear>
     <url>https://debacharya.com/nsgaii</url>
