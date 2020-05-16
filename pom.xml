@@ -15,7 +15,7 @@
     <url>https://debacharya.com/nsgaii</url>
 
     <description>
-        An NSGA-II implementation using Java. This implementation of NSGA-II algorithm is in pure reference to the
+        A NSGA-II implementation using Java. This implementation of NSGA-II algorithm is in pure reference to the
         original published paper. This is not an effort to convert the originally implemented C code in Java.
         The original C code by the authors has not be referred to while writing this implementation.
         This is a fully customizable implementation of the NSGA-II algorithm, made as generic as possible.
@@ -37,7 +37,7 @@
     <developers>
         <developer>
             <name>Debabrata Acharya</name>
-            <email>debabrata.acharya@icloud.com</email>
+            <email>debabrata@bloomscorp.com</email>
         </developer>
     </developers>
 
