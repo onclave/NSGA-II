@@ -34,6 +34,11 @@
         <system>GitHub Issues</system>
     </issueManagement>
 
+    <scm>
+        <connection>scm:git:git:https://github.com/onclave/NSGA-II.git</connection>
+        <url>https://github.com/onclave/NSGA-II</url>
+    </scm>
+
     <developers>
         <developer>
             <name>Debabrata Acharya</name>
