@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2019 Debabrata Acharya
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.debacharya.nsgaii;
 
 import com.debacharya.nsgaii.datastructure.Chromosome;
@@ -34,6 +58,8 @@ public class NSGA2 {
 	 * This will be usually the most useful constructor for `NSGA2` for the user.
 	 * The user can configure his / her plugins to the liking and then pass it to the `NSGA2`
 	 * constructor for the algorithm to be setup according to the users needs.
+	 *
+	 * @param	configuration	the configuration object setup for running the algorithm
 	 */
 	public NSGA2(Configuration configuration) {
 		this.configuration = configuration;
@@ -132,7 +158,7 @@ public class NSGA2 {
 	 * This method takes a `Population` of size `2N` (_a combination of parent and child, both of size `N`,
 	 * according to the originally proposed algorithm_) and returns a new `Population` instance of size `N` by
 	 * selecting the first `N` chromosomes from the combined population, based on their rank. If it has to choose `M` chromosomes
-	 * of rank `N` such that `M > N`, it then sorts the `M` chromosomes based on their crowding distance.
+	 * of rank `N` such that `M &gt; N`, it then sorts the `M` chromosomes based on their crowding distance.
 	 *
 	 * @param	combinedPopulation	the combined population of parent and child of size 2N
 	 * @return						the new population of size N chosen from the combined population passed as parameter
