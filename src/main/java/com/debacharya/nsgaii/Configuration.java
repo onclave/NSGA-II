@@ -29,6 +29,14 @@ import com.debacharya.nsgaii.plugin.*;
 
 import java.util.List;
 
+/**
+ * The Configuration class is used to setup the runtime settings of the NSGA-II algorithm.
+ * Since a lot of the settings within the algorithm can be changed, this class manages them all.
+ * An instance of this class is needed to be setup before creating an instance of
+ * NSGA2 class or running the algorithm. Changing settings of an instance of a Configuration class between
+ * runs will also reflect immediately on the result. This means that, if required (but almost rarely),
+ * the configuration of the algorithm within the same run can be changed dynamically.
+ */
 public class Configuration {
 
 	public static final String CONFIGURATION_NOT_SETUP = "The NSGA-II configuration object is not setup properly!";
