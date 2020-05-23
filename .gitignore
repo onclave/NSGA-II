@@ -1,6 +1,7 @@
 /target/
 licenseheader.txt
 NSGA-II.iml
+NSGA-II-report-*.txt
 
 ##############################
 ## Java

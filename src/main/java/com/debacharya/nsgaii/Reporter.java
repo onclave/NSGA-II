@@ -27,6 +27,7 @@ package com.debacharya.nsgaii;
 import com.debacharya.nsgaii.datastructure.AbstractAllele;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;
+import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
 import com.debacharya.nsgaii.plugin.GraphPlot;
 
 import java.io.FileWriter;
@@ -37,7 +38,8 @@ public class Reporter {
 
 	private static final int fileHash = ThreadLocalRandom.current().nextInt(10000, 100000);
 	private static final StringBuilder writeContent = new StringBuilder();
-	private static final GraphPlot allGenerationGraph = new GraphPlot("ALL GENERATIONS");
+
+	private static GraphPlot allGenerationGraph;
 
 	public static boolean silent = false;
 	public static boolean plotGraph = true;
@@ -77,13 +79,16 @@ public class Reporter {
 		p(configuration.toString());
 	}
 
-	public static void reportGeneration(Population parent, Population child, int generation) {
+	public static void reportGeneration(Population parent, Population child, int generation, List<AbstractObjectiveFunction> objectives) {
+
+		if(Reporter.allGenerationGraph == null)
+			Reporter.allGenerationGraph = new GraphPlot("ALL GENERATIONS", objectives);
 
 		if(plotGraph && plotCompiledGraphForEveryGeneration)
 			Reporter.allGenerationGraph.addData(child, "gen. " + generation);
 
 		if(plotGraph && plotGraphForEveryGeneration)
-			Reporter.plot2DPopulation(child, "GENERATION " + generation);
+			Reporter.plot2DPopulation(child, "GENERATION " + generation, objectives);
 
 		if(silent && !writeToDisk) return;
 
@@ -127,37 +132,35 @@ public class Reporter {
 		p(code.append("]").toString());
 	}
 
-	public static void plot2DPopulation(Population population, String key) {
+	public static void plot2DPopulation(Population population, String key, List<AbstractObjectiveFunction> objectives) {
 
-		if(!GraphPlot.isCompatible()) return;
+		if(!GraphPlot.isCompatible(objectives)) return;
 
-		GraphPlot graph = new GraphPlot(key);
+		GraphPlot graph = new GraphPlot(key, objectives);
 
 		graph.addData(population);
 		graph.plot();
 	}
 
-	public static void plot2DParetoFront(Population population) {
-		Reporter.plot2DPopulation(population, "PARETO FRONT");
+	public static void plot2DParetoFront(Population population, List<AbstractObjectiveFunction> objectives) {
+		Reporter.plot2DPopulation(population, "PARETO FRONT", objectives);
 	}
 
-	public static void plot2DGraphForAllGenerations() {
-
-		if(!GraphPlot.isCompatible()) return;
-
+	public static void plot2DGraphForAllGenerations(List<AbstractObjectiveFunction> objectives) {
+		if(!GraphPlot.isCompatible(objectives)) return;
 		Reporter.allGenerationGraph.plot();
 	}
 
-	public static void plotGraphs(Population finalChild) {
+	public static void plotGraphs(Population finalChild, List<AbstractObjectiveFunction> objectives) {
 
-		if(!GraphPlot.isCompatible()) return;
-		if(plotGraph) Reporter.plot2DParetoFront(finalChild);
-		if(plotCompiledGraphForEveryGeneration) Reporter.plot2DGraphForAllGenerations();
+		if(!GraphPlot.isCompatible(objectives)) return;
+		if(plotGraph) Reporter.plot2DParetoFront(finalChild, objectives);
+		if(plotCompiledGraphForEveryGeneration) Reporter.plot2DGraphForAllGenerations(objectives);
 	}
 
-	public static void terminate(Population finalChild) {
+	public static void terminate(Population finalChild, List<AbstractObjectiveFunction> objectives) {
 
-		Reporter.plotGraphs(finalChild);
+		Reporter.plotGraphs(finalChild, objectives);
 
 		if(silent && !writeToDisk) return;
 

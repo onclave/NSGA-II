@@ -96,7 +96,7 @@ public class NSGA2 {
 			)
 		);
 
-		Reporter.reportGeneration(parent, child, 0);
+		Reporter.reportGeneration(parent, child, 0, this.configuration.objectives);
 
 		for(int generation = 1; generation <= this.configuration.getGenerations(); generation++) {
 
@@ -118,10 +118,10 @@ public class NSGA2 {
 				)
 			);
 
-			Reporter.reportGeneration(parent, child, generation);
+			Reporter.reportGeneration(parent, child, generation, this.configuration.objectives);
 		}
 
-		Reporter.terminate(child);
+		Reporter.terminate(child, this.configuration.objectives);
 
 		return child;
 	}
@@ -141,7 +141,7 @@ public class NSGA2 {
 	 */
 	public Population preparePopulation(Population population) {
 
-		Service.calculateObjectiveValues(population);
+		Service.calculateObjectiveValues(population, this.configuration.objectives);
 		this.fastNonDominatedSort(population);
 		this.crowdingDistanceAssignment(population);
 
@@ -238,7 +238,7 @@ public class NSGA2 {
 
 		int size = population.size();
 
-		for(int i = 0; i < Configuration.objectives.size(); i++) {
+		for(int i = 0; i < this.configuration.objectives.size(); i++) {
 
 			Service.randomizedQuickSortForObjective(population.getPopulace(), 0, population.size() - 1, i);
 
@@ -303,7 +303,7 @@ public class NSGA2 {
 
 		boolean atLeastOneIsBetter = false;
 
-		for(int i = 0; i < Configuration.objectives.size(); i++)
+		for(int i = 0; i < this.configuration.objectives.size(); i++)
 			if(chromosome1.getObjectiveValues().get(i) < chromosome2.getObjectiveValues().get(i))
 				return false;
 			else if(chromosome1.getObjectiveValues().get(i) > chromosome2.getObjectiveValues().get(i))

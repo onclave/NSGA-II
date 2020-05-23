@@ -44,10 +44,11 @@ public class Configuration {
 	public static final int DEFAULT_GENERATIONS = 25;
 	public static final int DEFAULT_CHROMOSOME_LENGTH = 20;
 
-	public static List<AbstractObjectiveFunction> objectives;
 	public static String FITNESS_CALCULATOR_NULL = "The fitness calculation operation has not been setup. "				+
 													"You need to set the AbstractObjectiveFunction#fitnessCalculator "	+
 													"with an instance of FitnessCalculator!";
+
+	public List<AbstractObjectiveFunction> objectives;
 
 	private int populationSize;
 	private int generations;
@@ -189,7 +190,7 @@ public class Configuration {
 		this.populationProducer = populationProducer;
 		this.childPopulationProducer = childPopulationProducer;
 		this.geneticCodeProducer = geneticCodeProducer;
-		Configuration.objectives = objectives;
+		this.objectives = objectives;
 		this.crossover = crossover;
 		this.mutation = mutation;
 
@@ -322,8 +323,8 @@ public class Configuration {
 			this.populationProducer != null 		&&
 			this.childPopulationProducer != null	&&
 			this.geneticCodeProducer != null 		&&
-			Configuration.objectives != null		&&
-			!Configuration.objectives.isEmpty()
+			this.objectives != null		&&
+			!this.objectives.isEmpty()
 		);
 	}
 
@@ -376,7 +377,7 @@ public class Configuration {
 				"]" 																								+
 				"\nObjectives: " 																					+
 				"[" 																								+
-				((Configuration.objectives != null && !Configuration.objectives.isEmpty()) ? "valid" : "invalid")	+
+				((this.objectives != null && !this.objectives.isEmpty()) ? "valid" : "invalid")						+
 				"]"																									+
 				"\nCrossover Operator: " 																			+
 				"[" 																								+

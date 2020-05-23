@@ -27,12 +27,16 @@ package com.debacharya.nsgaii;
 import com.debacharya.nsgaii.datastructure.BooleanAllele;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;
+import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Service {
+public final class Service {
 
+	/**
+	 * this class is never supposed to be instantiated
+	 */
 	private Service() {}
 
 	public static Chromosome crowdedBinaryTournamentSelection(Population population) {
@@ -107,14 +111,14 @@ public class Service {
 		}
 	}
 
-	public static void calculateObjectiveValues(Chromosome chromosome) {
-		for(int i = 0; i < Configuration.objectives.size(); i++)
-			chromosome.addObjectiveValue(i, Configuration.objectives.get(i).getValue(chromosome));
+	public static void calculateObjectiveValues(Chromosome chromosome, List<AbstractObjectiveFunction> objectives) {
+		for(int i = 0; i < objectives.size(); i++)
+			chromosome.addObjectiveValue(i, objectives.get(i).getValue(chromosome));
 	}
 
-	public static void calculateObjectiveValues(Population population) {
+	public static void calculateObjectiveValues(Population population, List<AbstractObjectiveFunction> objectives) {
 		for(Chromosome chromosome : population.getPopulace())
-			Service.calculateObjectiveValues(chromosome);
+			Service.calculateObjectiveValues(chromosome, objectives);
 	}
 
 	public static void normalizeSortedObjectiveValues(Population population, int objectiveIndex) {

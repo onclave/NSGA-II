@@ -2,6 +2,7 @@ package com.debacharya.nsgaii.plugin;
 
 import com.debacharya.nsgaii.Configuration;
 import com.debacharya.nsgaii.datastructure.Population;
+import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -38,6 +39,7 @@ import java.awt.*;
  * SOFTWARE.
  */
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GraphPlot extends ApplicationFrame {
@@ -46,14 +48,16 @@ public class GraphPlot extends ApplicationFrame {
 
 	private final XYSeriesCollection dataset = new XYSeriesCollection();
 	private final String key;
+	private final List<AbstractObjectiveFunction> objectives;
 
 	private int dimensionX = 800;
 	private int dimensionY = 600;
 
-	public GraphPlot(String key) {
+	public GraphPlot(String key, List<AbstractObjectiveFunction> objectives) {
 		super(GraphPlot.APPLICATION_TITLE);
 		this.key = key;
-		GraphPlot.isCompatible();
+		this.objectives = objectives;
+		GraphPlot.isCompatible(objectives);
 	}
 
 	public void addData(Population population) {
@@ -62,7 +66,7 @@ public class GraphPlot extends ApplicationFrame {
 
 	public void addData(Population population, String uniqueSeriesKey) {
 
-		if(!GraphPlot.isCompatible()) return;
+		if(!GraphPlot.isCompatible(this.objectives)) return;
 
 		XYSeries front = new XYSeries(uniqueSeriesKey);
 
@@ -76,7 +80,7 @@ public class GraphPlot extends ApplicationFrame {
 
 	public void configure(String xAxisTitle, String yAxisTitle) {
 
-		if(!GraphPlot.isCompatible()) return;
+		if(!GraphPlot.isCompatible(this.objectives)) return;
 
 		JFreeChart xyLineChart = ChartFactory.createXYLineChart(
 			this.key,
@@ -109,7 +113,7 @@ public class GraphPlot extends ApplicationFrame {
 
 	public void plot(String xAxisTitle, String yAxisTitle) {
 
-		if(!GraphPlot.isCompatible()) return;
+		if(!GraphPlot.isCompatible(this.objectives)) return;
 		if(this.dataset.getSeriesCount() < 1) {
 			System.out.println("\nNothing to plot!\n");
 			return;
@@ -123,8 +127,8 @@ public class GraphPlot extends ApplicationFrame {
 
 	public void plot() {
 		this.plot(
-			Configuration.objectives.get(0).getObjectiveTitle(),
-			Configuration.objectives.get(1).getObjectiveTitle()
+			this.objectives.get(0).getObjectiveTitle(),
+			this.objectives.get(1).getObjectiveTitle()
 		);
 	}
 
@@ -133,9 +137,9 @@ public class GraphPlot extends ApplicationFrame {
 		this.dimensionY = dimensionY;
 	}
 
-	public static boolean isCompatible() {
+	public static boolean isCompatible(List<AbstractObjectiveFunction> objectives) {
 
-		if(Configuration.objectives.size() > 2) {
+		if(objectives.size() > 2) {
 
 			System.out.println(
 				"\n\n!! There are more than two objective functions present which cannot be plotted on a 2D graph.\n" +

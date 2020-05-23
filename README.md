@@ -59,7 +59,7 @@ To use it as a maven dependency add the following to your `pom.xml` file:
     </dependencies>
 ```
 
-**Please note tthat while you can use version 3.0.1, it requires Java 13 and above. 3.0.2 has been released to be able to work with Java 1.8 and above.**
+**Please note that while you can use version 3.0.1, it requires Java 13 and above. 3.0.2 has been released to be able to work with Java 1.8 and above.**
 
 ### [Getting Started](https://github.com/onclave/NSGA-II/wiki/Getting-Started)
 
