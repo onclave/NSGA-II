@@ -44,7 +44,22 @@ For full documentation, visit the [Documentation Wiki](https://github.com/onclav
 
 ### Using it in your project
 
-This package shall be published to maven shortly. Till then you can use the source package directly in your project.
+#### This package is now available on the maven central repository!
+
+To use it as a maven dependency add the following to your `pom.xml` file:
+
+```xml
+    <dependencies>
+        ...
+        <dependency>
+            <groupId>com.debacharya</groupId>
+            <artifactId>nsgaii</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+    </dependencies>
+```
+
+**Please note tthat while you can use version 3.0.1, it requires Java 13 and above. 3.0.2 has been released to be able to work with Java 1.8 and above.**
 
 ### [Getting Started](https://github.com/onclave/NSGA-II/wiki/Getting-Started)
 
