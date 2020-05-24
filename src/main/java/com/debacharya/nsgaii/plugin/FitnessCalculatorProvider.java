@@ -38,7 +38,7 @@ public class FitnessCalculatorProvider {
 	public static FitnessCalculator normalizedGeneticCodeValue(double actualMin, double actualMax, double normalizedMin, double normalizedMax) {
 		return chromosome -> {
 
-			if(!(chromosome.getGeneticCode().get(0) instanceof BooleanAllele))
+			if(!(chromosome.getAllele(0) instanceof BooleanAllele))
 				throw new UnsupportedOperationException(FitnessCalculatorProvider.NON_BOOLEAN_ALLELE_UNSUPPORTED);
 
 			return Service.getNormalizedGeneticCodeValue(

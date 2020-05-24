@@ -46,6 +46,7 @@ public class Reporter {
 	public static boolean plotCompiledGraphForEveryGeneration = true;
 	public static boolean plotGraphForEveryGeneration = false;
 	public static boolean writeToDisk = true;
+	public static boolean diskWriteSuccessful = true;
 	public static String filename = "NSGA-II-report-" + Reporter.fileHash + ".txt";
 
 	public static void init(Configuration configuration) {
@@ -169,7 +170,7 @@ public class Reporter {
 
 		if(writeToDisk) {
 			Reporter.writeToFile();
-			p("** Output saved at " + filename + "\n");
+			if(diskWriteSuccessful) p("** Output saved at " + filename + "\n");
 		}
 	}
 
@@ -181,6 +182,7 @@ public class Reporter {
 			writer.write(Reporter.writeContent.toString());
 			writer.close();
 		} catch (Exception e) {
+			diskWriteSuccessful = false;
 			System.out.println("\n!!! COULD NOT WRITE FILE TO DISK!\n\n");
 		}
 	}

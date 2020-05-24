@@ -57,9 +57,9 @@ public class SinglePointMutation extends AbstractMutation {
 		for(int i = 0; i < chromosome.getLength(); i++)
 			booleanGeneticCode.add(
 				i, new BooleanAllele(
-					this.shouldPerformMutation()										?
-						!((BooleanAllele) chromosome.getGeneticCode().get(i)).getGene()	:
-						((BooleanAllele) chromosome.getGeneticCode().get(i)).getGene()
+					this.shouldPerformMutation()								?
+						!((BooleanAllele) chromosome.getAllele(i)).getGene()	:
+						((BooleanAllele) chromosome.getAllele(i)).getGene()
 				)
 			);
 
