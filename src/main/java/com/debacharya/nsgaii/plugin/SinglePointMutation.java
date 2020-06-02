@@ -33,7 +33,7 @@ import java.util.List;
 
 public class SinglePointMutation extends AbstractMutation {
 
-	private static final String BOOLEAN_ALLELE_INSTANCE_ERROR = "SinglePointMutation only works with BooleanAllele only. "								+
+	private static final String BOOLEAN_ALLELE_INSTANCE_ERROR = "SinglePointMutation works with BooleanAllele only. "								+
 																"Please implement your own Mutation class by extending the AbstractMutation class "		+
 																"to get your desired results.";
 

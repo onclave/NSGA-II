@@ -159,7 +159,7 @@ public class Chromosome {
 	@Override
 	public String toString() {
 
-		StringBuilder response = new StringBuilder("Objective values: [");
+		StringBuilder response = new StringBuilder("Objective values: [ ");
 
 		for(double value : this.objectiveValues)
 			response.append(value).append(" ");

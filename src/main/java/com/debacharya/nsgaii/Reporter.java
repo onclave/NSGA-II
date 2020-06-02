@@ -119,6 +119,7 @@ public class Reporter {
 		Reporter.reportGeneticCode(chromosome.getGeneticCode());
 
 		p(">> " + chromosome.toString());
+		p("");
 	}
 
 	public static void reportGeneticCode(List<AbstractAllele> geneticCode) {

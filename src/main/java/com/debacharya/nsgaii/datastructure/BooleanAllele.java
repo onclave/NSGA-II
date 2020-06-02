@@ -32,12 +32,12 @@ public class BooleanAllele extends AbstractAllele {
 
 	@Override
 	public Boolean getGene() {
-		return (Boolean) this.gene;
+		return (boolean) this.gene;
 	}
 
 	@Override
 	public AbstractAllele getCopy() {
-		return new BooleanAllele((Boolean) this.gene);
+		return new BooleanAllele((boolean) this.gene);
 	}
 
 	@Override

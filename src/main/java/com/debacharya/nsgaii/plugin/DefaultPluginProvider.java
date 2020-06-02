@@ -28,6 +28,7 @@ import com.debacharya.nsgaii.Service;
 import com.debacharya.nsgaii.datastructure.BooleanAllele;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;
+import com.debacharya.nsgaii.datastructure.ValueAllele;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,30 @@ public class DefaultPluginProvider {
 
 			for(int i = 0; i < length; i++)
 				geneticCode.add(i, new BooleanAllele(ThreadLocalRandom.current().nextBoolean()));
+
+			return geneticCode;
+		};
+	}
+
+	public static GeneticCodeProducer valueEncodedGeneticCodeProducer(double origin, double bound) {
+		return length -> {
+
+			List<ValueAllele> geneticCode = new ArrayList<>();
+
+			for(int i = 0; i < length; i++) {
+
+				double value = ThreadLocalRandom.current().nextDouble(origin, (bound + 0.1));
+
+				if(value > bound)
+					value = bound;
+
+				value = Service.roundOff(value, 4);
+
+				geneticCode.add(
+					i,
+					new ValueAllele(value)
+				);
+			}
 
 			return geneticCode;
 		};
