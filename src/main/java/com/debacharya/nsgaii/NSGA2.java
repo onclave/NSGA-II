@@ -123,6 +123,9 @@ public class NSGA2 {
 
 		Reporter.terminate(child, this.configuration.objectives);
 
+		if(Reporter.autoTerminate)
+			Reporter.commitToDisk();
+
 		return child;
 	}
 

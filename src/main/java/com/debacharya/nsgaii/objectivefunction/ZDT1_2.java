@@ -1,6 +1,5 @@
 package com.debacharya.nsgaii.objectivefunction;
 
-import com.debacharya.nsgaii.datastructure.BooleanAllele;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.ValueAllele;
 

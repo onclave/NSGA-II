@@ -1,6 +1,5 @@
 package com.debacharya.nsgaii.plugin;
 
-import com.debacharya.nsgaii.Configuration;
 import com.debacharya.nsgaii.datastructure.Population;
 import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
 import org.jfree.chart.ChartFactory;
@@ -15,6 +14,9 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RefineryUtilities;
 
 import java.awt.*;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 /*
  * MIT License
  *
@@ -38,9 +40,6 @@ import java.awt.*;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class GraphPlot extends ApplicationFrame {
 

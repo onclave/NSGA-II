@@ -1,11 +1,8 @@
 package com.debacharya.nsgaii.objectivefunction;
 
-import com.debacharya.nsgaii.datastructure.BooleanAllele;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.ValueAllele;
-import com.debacharya.nsgaii.plugin.SinglePointMutation;
 
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ZDT1_1 extends AbstractObjectiveFunction {

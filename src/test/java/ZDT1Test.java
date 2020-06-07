@@ -24,8 +24,8 @@ public class ZDT1Test {
 
 		configuration.objectives = objectives;
 
-		configuration.setPopulationSize(100);
-		configuration.setGenerations(500);
+		configuration.setPopulationSize(200);
+		configuration.setGenerations(100);
 		configuration.setChromosomeLength(30);
 		configuration.setGeneticCodeProducer(DefaultPluginProvider.valueEncodedGeneticCodeProducer(0, 1));
 		configuration.setMutation(new PolynomialMutation(0, 1));

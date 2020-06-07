@@ -30,28 +30,37 @@ import com.debacharya.nsgaii.datastructure.Population;
 import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
 import com.debacharya.nsgaii.plugin.GraphPlot;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Reporter {
 
-	private static final int fileHash = ThreadLocalRandom.current().nextInt(10000, 100000);
-	private static final StringBuilder writeContent = new StringBuilder();
-
+	private static int fileHash = ThreadLocalRandom.current().nextInt(10000, 100000);
+	private static StringBuilder writeContent = new StringBuilder();
 	private static GraphPlot allGenerationGraph;
 
 	public static boolean silent = false;
+	public static boolean autoTerminate = true;
 	public static boolean plotGraph = true;
 	public static boolean plotCompiledGraphForEveryGeneration = true;
 	public static boolean plotGraphForEveryGeneration = false;
 	public static boolean writeToDisk = true;
 	public static boolean diskWriteSuccessful = true;
+	public static String outputDirectory = "";
 	public static String filename = "NSGA-II-report-" + Reporter.fileHash + ".txt";
 
 	public static void init(Configuration configuration) {
 
 		if(silent && !writeToDisk) return;
+		if(!Reporter.outputDirectory.isEmpty() && !Reporter
+													.outputDirectory
+													.substring(Reporter.outputDirectory.length() - 1)
+													.equals(File.separator))
+			Reporter.outputDirectory += File.separator;
 
 		p("\n[ " + java.time.LocalDateTime.now() + " ]");
 		p("\n** To stop reporter from printing to console, change Reporter.silent to true or call Configuration.beSilent()");
@@ -59,7 +68,7 @@ public class Reporter {
 		"** Reporter is" 											+
 			(Reporter.writeToDisk ? "" : " not") 						+
 			" writing to disk" 											+
-			(Reporter.writeToDisk ? (" at " + Reporter.filename) : "") 	+
+			(Reporter.writeToDisk ? (" at " + Reporter.outputDirectory + Reporter.filename) : "") 	+
 			"."
 		);
 
@@ -168,17 +177,33 @@ public class Reporter {
 
 		p("------------------------------------------------");
 		p("NSGA-II ENDED SUCCESSFULLY\n");
+	}
 
+	public static void commitToDisk() {
 		if(writeToDisk) {
 			Reporter.writeToFile();
-			if(diskWriteSuccessful) p("** Output saved at " + filename + "\n");
+			if(diskWriteSuccessful) p("** Output saved at " + outputDirectory + filename + "\n");
 		}
+	}
+
+	public static void flush() {
+		Reporter.writeContent = new StringBuilder();
+		Reporter.allGenerationGraph = null;
+		Reporter.fileHash = ThreadLocalRandom.current().nextInt(10000, 100000);
+		Reporter.filename = "NSGA-II-report-" + Reporter.fileHash + ".txt";
+	}
+
+	public static void p(Object s) {
+		if(writeToDisk) Reporter.writeContent.append(s).append(System.lineSeparator());
+		if(!silent) System.out.println(s.toString());
 	}
 
 	private static void writeToFile() {
 
 		try {
-			FileWriter writer = new FileWriter(Reporter.filename);
+
+			Files.createDirectories(Paths.get(Reporter.outputDirectory));
+			FileWriter writer = new FileWriter(Reporter.outputDirectory + Reporter.filename);
 
 			writer.write(Reporter.writeContent.toString());
 			writer.close();
@@ -186,10 +211,5 @@ public class Reporter {
 			diskWriteSuccessful = false;
 			System.out.println("\n!!! COULD NOT WRITE FILE TO DISK!\n\n");
 		}
-	}
-
-	private static void p(String s) {
-		if(writeToDisk) Reporter.writeContent.append(s).append(System.lineSeparator());
-		if(!silent) System.out.println(s);
 	}
 }
