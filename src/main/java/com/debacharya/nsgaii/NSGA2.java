@@ -96,9 +96,11 @@ public class NSGA2 {
 			)
 		);
 
-		Reporter.reportGeneration(parent, child, 0, this.configuration.objectives);
+		int generation = 0;
 
-		for(int generation = 1; generation <= this.configuration.getGenerations(); generation++) {
+		Reporter.reportGeneration(parent, child, generation, this.configuration.objectives);
+
+		while(configuration.getGenerationDriver().shouldRun(child, ++generation, this.configuration.getGenerations(), null)) {
 
 			parent = this.getChildFromCombinedPopulation(
 				this.preparePopulation(

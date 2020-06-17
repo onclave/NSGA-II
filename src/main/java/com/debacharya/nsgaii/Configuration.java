@@ -58,6 +58,7 @@ public class Configuration {
 	private GeneticCodeProducer geneticCodeProducer;
 	private AbstractCrossover crossover;
 	private AbstractMutation mutation;
+	private GenerationDriver generationDriver;
 	private FitnessCalculator fitnessCalculator;
 
 	public Configuration() {
@@ -79,6 +80,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(chromosomeLength),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
+			GenerationDriverProvider.provideSimpleGenerationDriver(),
 			false,
 			true,
 			true
@@ -96,6 +98,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
+			GenerationDriverProvider.provideSimpleGenerationDriver(),
 			false,
 			true,
 			true
@@ -113,6 +116,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
+			GenerationDriverProvider.provideSimpleGenerationDriver(),
 			false,
 			true,
 			true
@@ -130,6 +134,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
+			GenerationDriverProvider.provideSimpleGenerationDriver(),
 			false,
 			true,
 			true
@@ -147,6 +152,7 @@ public class Configuration {
 			objectives,
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
+			GenerationDriverProvider.provideSimpleGenerationDriver(),
 			false,
 			true,
 			true
@@ -164,6 +170,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
+			GenerationDriverProvider.provideSimpleGenerationDriver(),
 			false,
 			true,
 			true,
@@ -180,6 +187,7 @@ public class Configuration {
 						 List<AbstractObjectiveFunction> objectives,
 						 AbstractCrossover crossover,
 						 AbstractMutation mutation,
+						 GenerationDriver generationDriver,
 						 boolean silent,
 						 boolean plotGraph,
 						 boolean writeToDisk) {
@@ -193,6 +201,7 @@ public class Configuration {
 		this.objectives = objectives;
 		this.crossover = crossover;
 		this.mutation = mutation;
+		this.generationDriver = generationDriver;
 
 		Reporter.silent = silent;
 		Reporter.plotGraph = plotGraph;
@@ -208,6 +217,7 @@ public class Configuration {
 						 List<AbstractObjectiveFunction> objectives,
 						 AbstractCrossover crossover,
 						 AbstractMutation mutation,
+						 GenerationDriver generationDriver,
 						 boolean silent,
 						 boolean plotGraph,
 						 boolean writeToDisk,
@@ -222,6 +232,7 @@ public class Configuration {
 				objectives,
 				crossover,
 				mutation,
+				generationDriver,
 				silent,
 				plotGraph,
 				writeToDisk);
@@ -298,6 +309,14 @@ public class Configuration {
 		this.mutation = mutation;
 	}
 
+	public GenerationDriver getGenerationDriver() {
+		return generationDriver;
+	}
+
+	public void setGenerationDriver(GenerationDriver generationDriver) {
+		this.generationDriver = generationDriver;
+	}
+
 	public FitnessCalculator getFitnessCalculator() {
 
 		if(this.fitnessCalculator == null)
@@ -323,6 +342,9 @@ public class Configuration {
 			this.populationProducer != null 		&&
 			this.childPopulationProducer != null	&&
 			this.geneticCodeProducer != null 		&&
+			this.crossover != null					&&
+			this.mutation != null					&&
+			this.generationDriver != null			&&
 			this.objectives != null		&&
 			!this.objectives.isEmpty()
 		);
@@ -386,6 +408,10 @@ public class Configuration {
 				"\nMutation Operator: " 																			+
 				"[" 																								+
 				(this.mutation != null ? "provided" : "not provided") 												+
+				"]" 																								+
+				"\nGeneration Driver: " 																			+
+				"[" 																								+
+				(this.generationDriver != null ? "provided" : "not provided") 										+
 				"]" 																								+
 				"\nFitness Calculator: " 																			+
 				"[" 																								+
