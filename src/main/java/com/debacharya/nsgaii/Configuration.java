@@ -24,6 +24,11 @@
 
 package com.debacharya.nsgaii;
 
+import com.debacharya.nsgaii.crossover.AbstractCrossover;
+import com.debacharya.nsgaii.crossover.CrossoverParticipantCreatorProvider;
+import com.debacharya.nsgaii.crossover.UniformCrossover;
+import com.debacharya.nsgaii.mutation.AbstractMutation;
+import com.debacharya.nsgaii.mutation.SinglePointMutation;
 import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
 import com.debacharya.nsgaii.plugin.*;
 
@@ -76,7 +81,7 @@ public class Configuration {
 			chromosomeLength,
 			DefaultPluginProvider.defaultPopulationProducer(),
 			DefaultPluginProvider.defaultChildPopulationProducer(),
-			DefaultPluginProvider.defaultGeneticCodeProducer(),
+			GeneticCodeProducerProvider.binaryGeneticCodeProducer(),
 			ObjectiveProvider.provideSCHObjectives(chromosomeLength),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
@@ -94,7 +99,7 @@ public class Configuration {
 			Configuration.DEFAULT_CHROMOSOME_LENGTH,
 			populationProducer,
 			DefaultPluginProvider.defaultChildPopulationProducer(),
-			DefaultPluginProvider.defaultGeneticCodeProducer(),
+			GeneticCodeProducerProvider.binaryGeneticCodeProducer(),
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
@@ -112,7 +117,7 @@ public class Configuration {
 			Configuration.DEFAULT_CHROMOSOME_LENGTH,
 			DefaultPluginProvider.defaultPopulationProducer(),
 			childPopulationProducer,
-			DefaultPluginProvider.defaultGeneticCodeProducer(),
+			GeneticCodeProducerProvider.binaryGeneticCodeProducer(),
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
@@ -148,7 +153,7 @@ public class Configuration {
 			Configuration.DEFAULT_CHROMOSOME_LENGTH,
 			DefaultPluginProvider.defaultPopulationProducer(),
 			DefaultPluginProvider.defaultChildPopulationProducer(),
-			DefaultPluginProvider.defaultGeneticCodeProducer(),
+			GeneticCodeProducerProvider.binaryGeneticCodeProducer(),
 			objectives,
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
@@ -166,7 +171,7 @@ public class Configuration {
 			Configuration.DEFAULT_CHROMOSOME_LENGTH,
 			DefaultPluginProvider.defaultPopulationProducer(),
 			DefaultPluginProvider.defaultChildPopulationProducer(),
-			DefaultPluginProvider.defaultGeneticCodeProducer(),
+			GeneticCodeProducerProvider.binaryGeneticCodeProducer(),
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),

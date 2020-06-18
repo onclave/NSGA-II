@@ -14,7 +14,7 @@
 
     <groupId>com.debacharya</groupId>
     <artifactId>nsgaii</artifactId>
-    <version>3.0.10</version>
+    <version>3.0.11</version>
     <packaging>jar</packaging>
 
     <inceptionYear>2019</inceptionYear>

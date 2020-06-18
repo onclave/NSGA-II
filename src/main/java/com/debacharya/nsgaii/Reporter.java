@@ -36,6 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class Reporter {
 
@@ -141,6 +142,13 @@ public class Reporter {
 			code.append(allele.toString()).append(" ");
 
 		p(code.append("]").toString());
+	}
+
+	public static void reportConcreteGeneticCode(List<? extends AbstractAllele> geneticCode) {
+
+		if(silent && !writeToDisk) return;
+
+		Reporter.reportGeneticCode(geneticCode.stream().map(e -> (AbstractAllele)e).collect(Collectors.toList()));
 	}
 
 	public static void plot2DPopulation(Population population, String key, List<AbstractObjectiveFunction> objectives) {

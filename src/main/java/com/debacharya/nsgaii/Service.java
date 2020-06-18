@@ -24,13 +24,15 @@
 
 package com.debacharya.nsgaii;
 
-import com.debacharya.nsgaii.datastructure.BooleanAllele;
-import com.debacharya.nsgaii.datastructure.Chromosome;
-import com.debacharya.nsgaii.datastructure.Population;
+import com.debacharya.nsgaii.datastructure.*;
 import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public final class Service {
 
@@ -172,6 +174,24 @@ public final class Service {
 		return value;
 	}
 
+	public static boolean isInGeneticCode(List<ValueAllele> geneticCode, double value) {
+
+		for(ValueAllele allele : geneticCode)
+			if(allele.getGene().equals(value))
+				return true;
+
+		return false;
+	}
+
+	public static boolean isInGeneticCode(List<IntegerAllele> geneticCode, int value) {
+
+		for(IntegerAllele allele : geneticCode)
+			if(allele.getGene().equals(value))
+				return true;
+
+		return false;
+	}
+
 	/**
 	 * an implementation of min-max normalization
 	 *
@@ -201,6 +221,29 @@ public final class Service {
 		decimalPlace = Math.pow(10, decimalPlace);
 
 		return (Math.round(value * decimalPlace) / decimalPlace);
+	}
+
+	public static List<Integer> generateUniqueRandomNumbers(int count) {
+		return Service.generateUniqueRandomNumbers(count, 0, count);
+	}
+
+	public static List<Integer> generateUniqueRandomNumbers(int count, int bound) {
+		return Service.generateUniqueRandomNumbers(count, 0, bound);
+	}
+
+	public static List<Integer> generateUniqueRandomNumbers(int count, int origin, int bound) {
+
+		if(bound <= origin)
+			throw new UnsupportedOperationException("Origin cannot be more than or equal to the Bound");
+
+		if(count > (bound - origin))
+			throw new UnsupportedOperationException("Count for randomly generated unique numbers cannot be more " +
+													"than the total possible bounded range");
+
+		List<Integer> range = IntStream.range(origin, bound).boxed().collect(Collectors.toCollection(ArrayList::new));
+		Collections.shuffle(range);
+
+		return range.subList(0, count);
 	}
 
 	private static void swapForRank(List<Chromosome> populace, int firstIndex, int secondIndex) {

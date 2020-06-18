@@ -24,7 +24,9 @@
 
 package com.debacharya.nsgaii.plugin;
 
+import com.debacharya.nsgaii.crossover.AbstractCrossover;
 import com.debacharya.nsgaii.datastructure.Population;
+import com.debacharya.nsgaii.mutation.AbstractMutation;
 
 @FunctionalInterface
 public interface ChildPopulationProducer {

@@ -22,8 +22,10 @@
  * SOFTWARE.
  */
 
-package com.debacharya.nsgaii.plugin;
+package com.debacharya.nsgaii.crossover;
 
+import com.debacharya.nsgaii.crossover.AbstractCrossover;
+import com.debacharya.nsgaii.crossover.CrossoverParticipantCreator;
 import com.debacharya.nsgaii.datastructure.AbstractAllele;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;

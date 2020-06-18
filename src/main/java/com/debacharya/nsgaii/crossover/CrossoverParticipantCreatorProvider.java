@@ -22,27 +22,26 @@
  * SOFTWARE.
  */
 
-package com.debacharya.nsgaii.plugin;
+package com.debacharya.nsgaii.crossover;
 
+import com.debacharya.nsgaii.Service;
+import com.debacharya.nsgaii.crossover.CrossoverParticipantCreator;
 import com.debacharya.nsgaii.datastructure.Chromosome;
-import com.debacharya.nsgaii.datastructure.Population;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class AbstractCrossover {
+public class CrossoverParticipantCreatorProvider {
 
-	protected final CrossoverParticipantCreator crossoverParticipantCreator;
+	public static CrossoverParticipantCreator selectByBinaryTournamentSelection() {
+		return population -> {
 
-	protected float crossoverProbability = 0.7f;
+			List<Chromosome> selected = new ArrayList<>();
 
-	public AbstractCrossover(CrossoverParticipantCreator crossoverParticipantCreator) {
-		this.crossoverParticipantCreator = crossoverParticipantCreator;
-	}
+			selected.add(Service.crowdedBinaryTournamentSelection(population));
+			selected.add(Service.crowdedBinaryTournamentSelection(population));
 
-	public abstract List<Chromosome> perform(Population population);
-
-	public boolean shouldPerformCrossover() {
-		return ThreadLocalRandom.current().nextFloat() <= this.crossoverProbability;
+			return selected;
+		};
 	}
 }

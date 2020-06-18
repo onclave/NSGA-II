@@ -146,6 +146,10 @@ public class Chromosome {
 		return this.geneticCode.get(index);
 	}
 
+	public void setAllele(int index, AbstractAllele allele) {
+		this.geneticCode.set(index, allele.getCopy());
+	}
+
 	public Chromosome getCopy() {
 		return new Chromosome(this);
 	}

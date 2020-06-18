@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.debacharya.nsgaii.plugin;
+package com.debacharya.nsgaii.mutation;
 
 import com.debacharya.nsgaii.datastructure.Chromosome;
 

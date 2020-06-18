@@ -22,25 +22,14 @@
  * SOFTWARE.
  */
 
-package com.debacharya.nsgaii.plugin;
+package com.debacharya.nsgaii.crossover;
 
-import com.debacharya.nsgaii.Service;
 import com.debacharya.nsgaii.datastructure.Chromosome;
+import com.debacharya.nsgaii.datastructure.Population;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CrossoverParticipantCreatorProvider {
-
-	public static CrossoverParticipantCreator selectByBinaryTournamentSelection() {
-		return population -> {
-
-			List<Chromosome> selected = new ArrayList<>();
-
-			selected.add(Service.crowdedBinaryTournamentSelection(population));
-			selected.add(Service.crowdedBinaryTournamentSelection(population));
-
-			return selected;
-		};
-	}
+@FunctionalInterface
+public interface CrossoverParticipantCreator {
+	List<Chromosome> create(Population population);
 }

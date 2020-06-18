@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.debacharya.nsgaii.plugin;
+package com.debacharya.nsgaii.mutation;
 
 import com.debacharya.nsgaii.datastructure.AbstractAllele;
 import com.debacharya.nsgaii.datastructure.BooleanAllele;
@@ -33,9 +33,9 @@ import java.util.List;
 
 public class SinglePointMutation extends AbstractMutation {
 
-	private static final String BOOLEAN_ALLELE_INSTANCE_ERROR = "SinglePointMutation works with BooleanAllele only. "								+
-																"Please implement your own Mutation class by extending the AbstractMutation class "		+
-																"to get your desired results.";
+	private static final String BOOLEAN_ALLELE_INSTANCE_ERROR = "SinglePointMutation works with BooleanAllele only. "		+
+																"Please implement your own Mutation class by extending "	+
+																"the AbstractMutation class to get your desired results.";
 
 	public SinglePointMutation() {
 		super();
