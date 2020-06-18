@@ -28,6 +28,8 @@ import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -150,11 +152,14 @@ public class NSGA2 {
 		this.fastNonDominatedSort(population);
 		this.crowdingDistanceAssignment(population);
 
-		Service.randomizedQuickSortForRank(
-			population.getPopulace(),
-			0,
-			population.size() - 1
-		);
+//		Service.randomizedQuickSortForRank(
+//			population.getPopulace(),
+//			0,
+//			population.size() - 1
+//		);
+
+		// rank based sort
+		population.getPopulace().sort(Comparator.comparingInt(Chromosome::getRank));
 
 		return population;
 	}
@@ -245,7 +250,17 @@ public class NSGA2 {
 
 		for(int i = 0; i < this.configuration.objectives.size(); i++) {
 
-			Service.randomizedQuickSortForObjective(population.getPopulace(), 0, population.size() - 1, i);
+//			Service.randomizedQuickSortForObjective(population.getPopulace(), 0, population.size() - 1, i);
+
+			//sort for objective
+			int finalI = i;
+			population.getPopulace().sort(Collections.reverseOrder(Comparator.comparingDouble(c -> c.getObjectiveValue(finalI))));
+
+//			population.getPopulace().sort(Comparator.comparingDouble(c -> c.getObjectiveValue(finalI)));
+
+//			population.getPopulace().sort((chromosome1, chromosome2) -> {
+//				return chromosome2.getObjectiveValues().get(finalI) - chromosome1.getObjectiveValues().get(finalI);
+//			});
 
 			Service.normalizeSortedObjectiveValues(population, i);
 
