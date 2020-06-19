@@ -38,8 +38,20 @@ public class CrossoverParticipantCreatorProvider {
 
 			List<Chromosome> selected = new ArrayList<>();
 
+			Chromosome parent1 = Service.crowdedBinaryTournamentSelection(population);
+			Chromosome parent2 = Service.crowdedBinaryTournamentSelection(population);
+
+
+
+			// TODO: Both of them may not be the same chromosome
 			selected.add(Service.crowdedBinaryTournamentSelection(population));
 			selected.add(Service.crowdedBinaryTournamentSelection(population));
+
+
+
+
+			selected.add(0, parent1);
+			selected.add(1, parent2);
 
 			return selected;
 		};

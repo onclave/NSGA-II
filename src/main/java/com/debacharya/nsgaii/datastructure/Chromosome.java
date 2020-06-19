@@ -161,6 +161,25 @@ public class Chromosome {
 	}
 
 	@Override
+	public boolean equals(Object chromosome) {
+
+		if(!(chromosome instanceof Chromosome))
+			throw new UnsupportedOperationException("A chromosome can only be checked for equality against another chromosome.");
+
+		if(this.geneticCode.size() != ((Chromosome) chromosome).getLength())
+			return false;
+
+		if(!this.geneticCode.get(0).getClass().equals(((Chromosome) chromosome).getAllele(0).getClass()))
+			return false;
+
+		for(int i = 0; i < this.geneticCode.size(); i++)
+			if(!this.geneticCode.get(i).equals(((Chromosome) chromosome).getAllele(i)))
+				return false;
+
+		return true;
+	}
+
+	@Override
 	public String toString() {
 
 		StringBuilder response = new StringBuilder("Objective values: [ ");

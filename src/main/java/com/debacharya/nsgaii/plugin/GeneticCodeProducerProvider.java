@@ -54,7 +54,7 @@ public class GeneticCodeProducerProvider {
 		};
 	}
 
-	public static GeneticCodeProducer PermutationEncodingGeneticCodeProducer() {
+	public static GeneticCodeProducer permutationEncodingGeneticCodeProducer() {
 		return length -> {
 
 			List<ValueAllele> valueEncodedGeneticCode = GeneticCodeProducerProvider
