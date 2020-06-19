@@ -9,6 +9,7 @@ import com.debacharya.nsgaii.plugin.DefaultPluginProvider;
 import com.debacharya.nsgaii.plugin.GeneticCodeProducerProvider;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,7 +40,18 @@ public class SnippetTest {
 		///////
 
 		// rank based sort
-		parent.getPopulace().sort(Comparator.comparingInt(Chromosome::getRank));
+//		parent.getPopulace().sort(Comparator.comparingInt(Chromosome::getRank));
+
+
+//		Reporter.p("\n");
+//		Reporter.reportPopulation(parent);
+//		Reporter.p("\n======================\n\n");
+
+
+
+
+		// objective based sort
+//		parent.getPopulace().sort(Collections.reverseOrder(Comparator.comparingDouble(c -> c.getObjectiveValue(0))));
 
 
 

@@ -66,6 +66,39 @@ public final class Service {
 		return new Population(populace);
 	}
 
+	public static void sortFrontWithCrowdingDistance(List<Chromosome> populace, int front) {
+
+
+		Reporter.p("last rank: " + populace.get(populace.size() - 1).getRank());
+
+
+		int frontStartIndex = -1;
+		int frontEndIndex = -1;
+
+		for(int i = 0; i < populace.size(); i++)
+			if(frontStartIndex < 0 && populace.get(i).getRank() == front)
+				frontStartIndex = i;
+			else if(frontStartIndex >= 0 && populace.get(i).getRank() == front)
+				frontEndIndex = i;
+
+		List<Chromosome> frontToSort = new ArrayList<>();
+
+		for(int i = frontStartIndex; i <= frontEndIndex; i++)
+			frontToSort.add(populace.get(i));
+
+
+
+
+
+		Reporter.reportPopulation(new Population(frontToSort));
+		Reporter.p("total count: " + frontToSort.size());
+
+
+
+
+
+	}
+
 	public static void sortForCrowdingDistance(List<Chromosome> populace, int lastNonDominatedSetRank) {
 
 		int rankStartIndex = -1;

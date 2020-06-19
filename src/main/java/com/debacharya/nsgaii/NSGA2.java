@@ -151,14 +151,6 @@ public class NSGA2 {
 		Service.calculateObjectiveValues(population, this.configuration.objectives);
 		this.fastNonDominatedSort(population);
 		this.crowdingDistanceAssignment(population);
-
-//		Service.randomizedQuickSortForRank(
-//			population.getPopulace(),
-//			0,
-//			population.size() - 1
-//		);
-
-		// rank based sort
 		population.getPopulace().sort(Comparator.comparingInt(Chromosome::getRank));
 
 		return population;
@@ -250,20 +242,10 @@ public class NSGA2 {
 
 		for(int i = 0; i < this.configuration.objectives.size(); i++) {
 
-//			Service.randomizedQuickSortForObjective(population.getPopulace(), 0, population.size() - 1, i);
+			int iFinal = i;
 
-			//sort for objective
-			int finalI = i;
-			population.getPopulace().sort(Collections.reverseOrder(Comparator.comparingDouble(c -> c.getObjectiveValue(finalI))));
-
-//			population.getPopulace().sort(Comparator.comparingDouble(c -> c.getObjectiveValue(finalI)));
-
-//			population.getPopulace().sort((chromosome1, chromosome2) -> {
-//				return chromosome2.getObjectiveValues().get(finalI) - chromosome1.getObjectiveValues().get(finalI);
-//			});
-
+			population.getPopulace().sort(Collections.reverseOrder(Comparator.comparingDouble(c -> c.getObjectiveValue(iFinal))));
 			Service.normalizeSortedObjectiveValues(population, i);
-
 			population.get(0).setCrowdingDistance(Double.MAX_VALUE);
 			population.getLast().setCrowdingDistance(Double.MAX_VALUE);
 
