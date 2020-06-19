@@ -73,14 +73,3 @@ public class OrderCrossover extends AbstractCrossover {
 		return new Chromosome(childgeneticCode);
 	}
 }
-
-
-/*
-
-	parent1 	-> * * * * | % % % | # # # #
-	parent2		-> @ @ @ @ | ^ ^ ^ | ! ! ! !
-
-	child1 		-> @ @ @ @ | % % % | ! ! ! !
-	child2		->
-
- */
