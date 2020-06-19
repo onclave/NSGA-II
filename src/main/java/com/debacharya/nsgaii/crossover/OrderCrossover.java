@@ -21,59 +21,56 @@ public class OrderCrossover extends AbstractCrossover {
 		if(!(population.getLast().getAllele(0) instanceof IntegerAllele))
 			throw new UnsupportedOperationException("Order Crossover works only with Permutation Encoded chromosomes.");
 
+		List<Chromosome> children = new ArrayList<>();
 		List<Chromosome> parents = this.crossoverParticipantCreator.create(population);
 		Chromosome parent1 = parents.get(0);
 		Chromosome parent2 = parents.get(1);
-		List<IntegerAllele> child1geneticCode = new ArrayList<>();
-		List<IntegerAllele> child2geneticCode = new ArrayList<>();
+		int partition1 = Service.generateUniqueRandomNumbers(1, 1, parent1.getLength() / 2).get(0);
+		int partition2 = Service.generateUniqueRandomNumbers(1, parent1.getLength() / 2, parent1.getLength() - 1).get(0);
 
-		int partition1 = Service.generateUniqueRandomNumbers(1, 0, parent1.getLength() / 2).get(0);
-		int partition2 = Service.generateUniqueRandomNumbers(1, parent1.getLength() / 2, parent1.getLength()).get(0);
-		int child1pointer = partition2;
+		children.add(0, this.prepareChild(
+			parent1,
+			parent2,
+			partition1,
+			partition2
+		));
 
-		//////
-		Reporter.p(partition1);
-		Reporter.p(partition2);
-		Reporter.reportGeneticCode(parent1.getGeneticCode());
-		Reporter.reportGeneticCode(parent2.getGeneticCode());
-		///////
+		children.add(1, this.prepareChild(
+			parent2,
+			parent1,
+			partition1,
+			partition2
+		));
 
-		for(int i = 0; i < parent1.getLength(); i++) {
-			child1geneticCode.add(i, new IntegerAllele(-1));
-			child2geneticCode.add(i, new IntegerAllele(-1));
-		}
+		return children;
+	}
+
+	private Chromosome prepareChild(Chromosome parent1, Chromosome parent2, int partition1, int partition2) {
+
+		List<IntegerAllele> childgeneticCode = new ArrayList<>();
+		int pointerStart = -1;
+		int pointerEnd = partition2;
+
+		for(int i = 0; i < parent1.getLength(); i++)
+			childgeneticCode.add(i, new IntegerAllele(-1));
 
 		for(int i = partition1; i <= partition2; i++)
-			child1geneticCode.set(i, (IntegerAllele) parent1.getAllele(i));
+			childgeneticCode.set(i, (IntegerAllele) parent1.getAllele(i));
 
 		if(partition2 < (parent1.getLength() - 1))
 			for(int i = (partition2 + 1); i < parent1.getLength(); i++)
-				if(!Service.isInGeneticCode(child1geneticCode, ((IntegerAllele) parent2.getAllele(i)).getGene()))
-					child1geneticCode.set(++child1pointer, (IntegerAllele) parent2.getAllele(i));
+				if(!Service.isInGeneticCode(childgeneticCode, ((IntegerAllele) parent2.getAllele(i)).getGene()))
+					childgeneticCode.set(++pointerEnd, (IntegerAllele) parent2.getAllele(i));
 
-		if(partition1 > 0)
-			for(int i = 0; i < partition2; i++) {
-				if(child1pointer < (parent1.getLength() - 1))
-					if(!Service.isInGeneticCode(child1geneticCode, ((IntegerAllele) parent2.getAllele(i)).getGene()))
-						child1geneticCode.set(++child1pointer, (IntegerAllele) parent2.getAllele(i));
+		for(int i = 0; i <= partition2; i++)
+			if(!Service.isInGeneticCode(childgeneticCode, ((IntegerAllele) parent2.getAllele(i)).getGene()))
+				if(pointerEnd < (parent1.getLength() - 1))
+					childgeneticCode.set(++pointerEnd, (IntegerAllele) parent2.getAllele(i));
+				else if(partition1 > 0)
+					childgeneticCode.set(++pointerStart, (IntegerAllele) parent2.getAllele(i));
+				else break;
 
-			}
-
-
-
-
-
-
-
-
-
-		Reporter.reportConcreteGeneticCode(child1geneticCode);
-		Reporter.p("pointer: " + child1pointer);
-
-
-
-		return null;
-
+		return new Chromosome(childgeneticCode);
 	}
 }
 

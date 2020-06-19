@@ -173,7 +173,7 @@ public class Chromosome {
 			return false;
 
 		for(int i = 0; i < this.geneticCode.size(); i++)
-			if(!this.geneticCode.get(i).equals(((Chromosome) chromosome).getAllele(i)))
+			if(!this.geneticCode.get(i).getGene().equals(((Chromosome) chromosome).getAllele(i).getGene()))
 				return false;
 
 		return true;
