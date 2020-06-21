@@ -167,11 +167,11 @@ public class NSGA2 {
 	 */
 	public Population getChildFromCombinedPopulation(Population combinedPopulation) {
 
-		int lastNonDominatedSetRank = combinedPopulation.get(this.configuration.getPopulationSize() - 1).getRank();
+		int lastFrontToConsider = combinedPopulation.get(this.configuration.getPopulationSize() - 1).getRank();
 		List<Chromosome> childPopulace = new ArrayList<>();
 
-		if(combinedPopulation.get(this.configuration.getPopulationSize()).getRank() == lastNonDominatedSetRank)
-			Service.sortForCrowdingDistance(combinedPopulation.getPopulace(), lastNonDominatedSetRank);
+		if(combinedPopulation.get(this.configuration.getPopulationSize()).getRank() == lastFrontToConsider)
+			Service.sortFrontWithCrowdingDistance(combinedPopulation.getPopulace(), lastFrontToConsider);
 
 		for(int i = 0; i < this.configuration.getPopulationSize(); i++)
 			childPopulace.add(combinedPopulation.get(i));

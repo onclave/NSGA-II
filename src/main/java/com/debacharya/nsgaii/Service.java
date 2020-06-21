@@ -29,6 +29,7 @@ import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -68,35 +69,33 @@ public final class Service {
 
 	public static void sortFrontWithCrowdingDistance(List<Chromosome> populace, int front) {
 
-
-		Reporter.p("last rank: " + populace.get(populace.size() - 1).getRank());
-
-
 		int frontStartIndex = -1;
 		int frontEndIndex = -1;
+		List<Chromosome> frontToSort = new ArrayList<>();
 
 		for(int i = 0; i < populace.size(); i++)
-			if(frontStartIndex < 0 && populace.get(i).getRank() == front)
+			if(populace.get(i).getRank() == front) {
 				frontStartIndex = i;
-			else if(frontStartIndex >= 0 && populace.get(i).getRank() == front)
-				frontEndIndex = i;
+				break;
+			}
 
-		List<Chromosome> frontToSort = new ArrayList<>();
+		if((frontStartIndex == -1) || (frontStartIndex == (populace.size() - 1)) || (populace.get(frontStartIndex + 1).getRank() != front))
+			return;
+
+		for(int i = frontStartIndex + 1; i < populace.size(); i++)
+			if(populace.get(i).getRank() != front) {
+				frontEndIndex = i - 1;
+				break;
+			} else if(i == (populace.size() - 1))
+				frontEndIndex = i;
 
 		for(int i = frontStartIndex; i <= frontEndIndex; i++)
 			frontToSort.add(populace.get(i));
 
+		frontToSort.sort(Collections.reverseOrder(Comparator.comparingDouble(Chromosome::getCrowdingDistance)));
 
-
-
-
-		Reporter.reportPopulation(new Population(frontToSort));
-		Reporter.p("total count: " + frontToSort.size());
-
-
-
-
-
+		for(int i = frontStartIndex; i <= frontEndIndex; i++)
+			populace.set(i, frontToSort.get(i - frontStartIndex));
 	}
 
 	public static void sortForCrowdingDistance(List<Chromosome> populace, int lastNonDominatedSetRank) {
