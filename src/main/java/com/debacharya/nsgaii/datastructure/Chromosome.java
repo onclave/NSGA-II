@@ -84,6 +84,14 @@ public class Chromosome {
 		return objectiveValues;
 	}
 
+	public double getObjectiveValue(int index) {
+
+		if(index > (this.objectiveValues.size() - 1))
+			throw new UnsupportedOperationException("Chromosome does not have " + (index + 1) + " objectives!");
+
+		return this.objectiveValues.get(index);
+	}
+
 	public void addObjectiveValue(int index, double value) {
 
 		double roundedValue = Service.roundOff(value, 4);

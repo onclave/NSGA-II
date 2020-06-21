@@ -28,6 +28,8 @@ import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -149,12 +151,7 @@ public class NSGA2 {
 		Service.calculateObjectiveValues(population, this.configuration.objectives);
 		this.fastNonDominatedSort(population);
 		this.crowdingDistanceAssignment(population);
-
-		Service.randomizedQuickSortForRank(
-			population.getPopulace(),
-			0,
-			population.size() - 1
-		);
+		population.getPopulace().sort(Comparator.comparingInt(Chromosome::getRank));
 
 		return population;
 	}
@@ -170,11 +167,11 @@ public class NSGA2 {
 	 */
 	public Population getChildFromCombinedPopulation(Population combinedPopulation) {
 
-		int lastNonDominatedSetRank = combinedPopulation.get(this.configuration.getPopulationSize() - 1).getRank();
+		int lastFrontToConsider = combinedPopulation.get(this.configuration.getPopulationSize() - 1).getRank();
 		List<Chromosome> childPopulace = new ArrayList<>();
 
-		if(combinedPopulation.get(this.configuration.getPopulationSize()).getRank() == lastNonDominatedSetRank)
-			Service.sortForCrowdingDistance(combinedPopulation.getPopulace(), lastNonDominatedSetRank);
+		if(combinedPopulation.get(this.configuration.getPopulationSize()).getRank() == lastFrontToConsider)
+			Service.sortFrontWithCrowdingDistance(combinedPopulation.getPopulace(), lastFrontToConsider);
 
 		for(int i = 0; i < this.configuration.getPopulationSize(); i++)
 			childPopulace.add(combinedPopulation.get(i));
@@ -245,10 +242,10 @@ public class NSGA2 {
 
 		for(int i = 0; i < this.configuration.objectives.size(); i++) {
 
-			Service.randomizedQuickSortForObjective(population.getPopulace(), 0, population.size() - 1, i);
+			int iFinal = i;
 
+			population.getPopulace().sort(Collections.reverseOrder(Comparator.comparingDouble(c -> c.getObjectiveValue(iFinal))));
 			Service.normalizeSortedObjectiveValues(population, i);
-
 			population.get(0).setCrowdingDistance(Double.MAX_VALUE);
 			population.getLast().setCrowdingDistance(Double.MAX_VALUE);
 
