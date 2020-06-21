@@ -1,4 +1,5 @@
 /target/
+/output/
 licenseheader.txt
 NSGA-II.iml
 NSGA-II-report-*.txt
