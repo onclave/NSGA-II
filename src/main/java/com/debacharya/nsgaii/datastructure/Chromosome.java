@@ -168,20 +168,16 @@ public class Chromosome {
 		this.dominatedChromosomes = new ArrayList<>();
 	}
 
-	@Override
-	public boolean equals(Object chromosome) {
+	public boolean identicalGeneticCode(Chromosome chromosome) {
 
-		if(!(chromosome instanceof Chromosome))
-			throw new UnsupportedOperationException("A chromosome can only be checked for equality against another chromosome.");
-
-		if(this.geneticCode.size() != ((Chromosome) chromosome).getLength())
+		if(this.geneticCode.size() != chromosome.getLength())
 			return false;
 
-		if(!this.geneticCode.get(0).getClass().equals(((Chromosome) chromosome).getAllele(0).getClass()))
+		if(!this.geneticCode.get(0).getClass().equals(chromosome.getAllele(0).getClass()))
 			return false;
 
 		for(int i = 0; i < this.geneticCode.size(); i++)
-			if(!this.geneticCode.get(i).getGene().equals(((Chromosome) chromosome).getAllele(i).getGene()))
+			if(!this.geneticCode.get(i).getGene().equals(chromosome.getAllele(i).getGene()))
 				return false;
 
 		return true;

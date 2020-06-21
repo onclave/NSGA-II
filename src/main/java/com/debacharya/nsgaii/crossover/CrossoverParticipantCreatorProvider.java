@@ -41,7 +41,7 @@ public class CrossoverParticipantCreatorProvider {
 			Chromosome parent1 = Service.crowdedBinaryTournamentSelection(population);
 			Chromosome parent2 = Service.crowdedBinaryTournamentSelection(population);
 
-			while(parent1.equals(parent2))
+			while(parent1.identicalGeneticCode(parent2))
 				parent2 = Service.crowdedBinaryTournamentSelection(population);
 
 			selected.add(0, parent1);
