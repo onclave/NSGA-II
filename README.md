@@ -10,7 +10,12 @@ _links to original contents:_
 
 _**note**: this implementation of NSGA-II algorithm is in pure reference to the original published paper. This is not an effort to convert the originally implemented C code in Java. The original C code by the authors has not be referred to while writing this implementation._
 
-_**Dependency: Java( >= 13), JFreeChart(1.5.0), JCommon(1.0.24)**_
+_**Dependency: Java( >= 1.8), JFreeChart(1.5.0), JCommon(1.0.24)**_
+
+### Important
+
+> version 3.1.0 brings a lot of added functionality, fixes a few bugs and brings a few breaking changes. While it is recommended to use the latest version (3.1.0) and update your dependencies for your exisiting projects, do keep in mind about the breaking
+> changes and open an issue if you are unable to do so.
 
 ### Please Note:
 
@@ -54,7 +59,7 @@ To use it as a maven dependency add the following to your `pom.xml` file:
         <dependency>
             <groupId>com.debacharya</groupId>
             <artifactId>nsgaii</artifactId>
-            <version>3.0.3</version>
+            <version>3.1.0</version>
         </dependency>
     </dependencies>
 ```
