@@ -51,7 +51,7 @@ public class Reporter {
 	public static boolean plotGraphForEveryGeneration = false;
 	public static boolean writeToDisk = true;
 	public static boolean diskWriteSuccessful = true;
-	public static String outputDirectory = "";
+	public static String outputDirectory = "output";
 	public static String filename = "NSGA-II-report-" + Reporter.fileHash + ".txt";
 
 	public static void init(Configuration configuration) {
