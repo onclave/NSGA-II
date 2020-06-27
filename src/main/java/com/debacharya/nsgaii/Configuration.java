@@ -30,7 +30,10 @@ import com.debacharya.nsgaii.crossover.UniformCrossover;
 import com.debacharya.nsgaii.mutation.AbstractMutation;
 import com.debacharya.nsgaii.mutation.SinglePointMutation;
 import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
+import com.debacharya.nsgaii.objectivefunction.ObjectiveProvider;
 import com.debacharya.nsgaii.plugin.*;
+import com.debacharya.nsgaii.termination.TerminatingCriterion;
+import com.debacharya.nsgaii.termination.TerminatingCriterionProvider;
 
 import java.util.List;
 
@@ -63,7 +66,7 @@ public class Configuration {
 	private GeneticCodeProducer geneticCodeProducer;
 	private AbstractCrossover crossover;
 	private AbstractMutation mutation;
-	private GenerationDriver generationDriver;
+	private TerminatingCriterion terminatingCriterion;
 	private FitnessCalculator fitnessCalculator;
 
 	public Configuration() {
@@ -85,7 +88,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(chromosomeLength),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
-			GenerationDriverProvider.provideSimpleGenerationDriver(),
+			TerminatingCriterionProvider.fixedTerminatingCriterion(),
 			false,
 			true,
 			true
@@ -103,7 +106,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
-			GenerationDriverProvider.provideSimpleGenerationDriver(),
+			TerminatingCriterionProvider.fixedTerminatingCriterion(),
 			false,
 			true,
 			true
@@ -121,7 +124,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
-			GenerationDriverProvider.provideSimpleGenerationDriver(),
+			TerminatingCriterionProvider.fixedTerminatingCriterion(),
 			false,
 			true,
 			true
@@ -139,7 +142,25 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
-			GenerationDriverProvider.provideSimpleGenerationDriver(),
+			TerminatingCriterionProvider.fixedTerminatingCriterion(),
+			false,
+			true,
+			true
+		);
+	}
+
+	public Configuration(TerminatingCriterion terminatingCriterion) {
+		this(
+			Configuration.DEFAULT_POPULATION_SIZE,
+			Configuration.DEFAULT_GENERATIONS,
+			Configuration.DEFAULT_CHROMOSOME_LENGTH,
+			DefaultPluginProvider.defaultPopulationProducer(),
+			DefaultPluginProvider.defaultChildPopulationProducer(),
+			GeneticCodeProducerProvider.binaryGeneticCodeProducer(),
+			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
+			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
+			new SinglePointMutation(),
+			terminatingCriterion,
 			false,
 			true,
 			true
@@ -157,7 +178,7 @@ public class Configuration {
 			objectives,
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
-			GenerationDriverProvider.provideSimpleGenerationDriver(),
+			TerminatingCriterionProvider.fixedTerminatingCriterion(),
 			false,
 			true,
 			true
@@ -175,7 +196,7 @@ public class Configuration {
 			ObjectiveProvider.provideSCHObjectives(Configuration.DEFAULT_CHROMOSOME_LENGTH),
 			new UniformCrossover(CrossoverParticipantCreatorProvider.selectByBinaryTournamentSelection()),
 			new SinglePointMutation(),
-			GenerationDriverProvider.provideSimpleGenerationDriver(),
+			TerminatingCriterionProvider.fixedTerminatingCriterion(),
 			false,
 			true,
 			true,
@@ -192,7 +213,7 @@ public class Configuration {
 						 List<AbstractObjectiveFunction> objectives,
 						 AbstractCrossover crossover,
 						 AbstractMutation mutation,
-						 GenerationDriver generationDriver,
+						 TerminatingCriterion terminatingCriterion,
 						 boolean silent,
 						 boolean plotGraph,
 						 boolean writeToDisk) {
@@ -206,7 +227,7 @@ public class Configuration {
 		this.objectives = objectives;
 		this.crossover = crossover;
 		this.mutation = mutation;
-		this.generationDriver = generationDriver;
+		this.terminatingCriterion = terminatingCriterion;
 
 		Reporter.silent = silent;
 		Reporter.plotGraph = plotGraph;
@@ -222,7 +243,7 @@ public class Configuration {
 						 List<AbstractObjectiveFunction> objectives,
 						 AbstractCrossover crossover,
 						 AbstractMutation mutation,
-						 GenerationDriver generationDriver,
+						 TerminatingCriterion terminatingCriterion,
 						 boolean silent,
 						 boolean plotGraph,
 						 boolean writeToDisk,
@@ -237,7 +258,7 @@ public class Configuration {
 				objectives,
 				crossover,
 				mutation,
-				generationDriver,
+			terminatingCriterion,
 				silent,
 				plotGraph,
 				writeToDisk);
@@ -314,12 +335,12 @@ public class Configuration {
 		this.mutation = mutation;
 	}
 
-	public GenerationDriver getGenerationDriver() {
-		return generationDriver;
+	public TerminatingCriterion getTerminatingCriterion() {
+		return terminatingCriterion;
 	}
 
-	public void setGenerationDriver(GenerationDriver generationDriver) {
-		this.generationDriver = generationDriver;
+	public void setTerminatingCriterion(TerminatingCriterion terminatingCriterion) {
+		this.terminatingCriterion = terminatingCriterion;
 	}
 
 	public FitnessCalculator getFitnessCalculator() {
@@ -349,7 +370,7 @@ public class Configuration {
 			this.geneticCodeProducer != null 		&&
 			this.crossover != null					&&
 			this.mutation != null					&&
-			this.generationDriver != null			&&
+			this.terminatingCriterion != null			&&
 			this.objectives != null		&&
 			!this.objectives.isEmpty()
 		);
@@ -416,7 +437,7 @@ public class Configuration {
 				"]" 																								+
 				"\nGeneration Driver: " 																			+
 				"[" 																								+
-				(this.generationDriver != null ? "provided" : "not provided") 										+
+				(this.terminatingCriterion != null ? "provided" : "not provided") 										+
 				"]" 																								+
 				"\nFitness Calculator: " 																			+
 				"[" 																								+

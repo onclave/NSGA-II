@@ -208,6 +208,10 @@ public final class Service {
 		return (Math.round(value * decimalPlace) / decimalPlace);
 	}
 
+	public static double percent(double x, double y) {
+		return Math.floor((x / 100.0) * y);
+	}
+
 	public static List<Integer> generateUniqueRandomNumbers(int count) {
 		return Service.generateUniqueRandomNumbers(count, 0, count);
 	}

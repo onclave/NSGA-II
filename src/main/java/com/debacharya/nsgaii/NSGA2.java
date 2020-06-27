@@ -102,7 +102,7 @@ public class NSGA2 {
 
 		Reporter.reportGeneration(parent, child, generation, this.configuration.objectives);
 
-		while(configuration.getGenerationDriver().shouldRun(child, ++generation, this.configuration.getGenerations(), null)) {
+		while(configuration.getTerminatingCriterion().shouldRun(child, ++generation, this.configuration.getGenerations())) {
 
 			parent = this.getChildFromCombinedPopulation(
 				this.preparePopulation(

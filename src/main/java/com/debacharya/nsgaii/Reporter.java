@@ -126,8 +126,7 @@ public class Reporter {
 
 		if(silent && !writeToDisk) return;
 
-//		Reporter.reportGeneticCode(chromosome.getGeneticCode());
-
+		Reporter.reportGeneticCode(chromosome.getGeneticCode());
 		p(">> " + chromosome.toString());
 		p("");
 	}

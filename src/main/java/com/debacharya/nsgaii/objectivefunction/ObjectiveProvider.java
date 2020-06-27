@@ -22,11 +22,10 @@
  * SOFTWARE.
  */
 
-package com.debacharya.nsgaii.plugin;
+package com.debacharya.nsgaii.objectivefunction;
 
-import com.debacharya.nsgaii.objectivefunction.AbstractObjectiveFunction;
-import com.debacharya.nsgaii.objectivefunction.SCH_1;
-import com.debacharya.nsgaii.objectivefunction.SCH_2;
+import com.debacharya.nsgaii.plugin.FitnessCalculator;
+import com.debacharya.nsgaii.plugin.FitnessCalculatorProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +49,16 @@ public class ObjectiveProvider {
 
 		objectives.add(new SCH_1(fitnessCalculator));
 		objectives.add(new SCH_2(fitnessCalculator));
+
+		return objectives;
+	}
+
+	public static List<AbstractObjectiveFunction> provideZDTObjectives() {
+
+		List<AbstractObjectiveFunction> objectives = new ArrayList<>();
+
+		objectives.add(new ZDT1_1());
+		objectives.add(new ZDT1_2());
 
 		return objectives;
 	}
