@@ -59,7 +59,7 @@ To use it as a maven dependency add the following to your `pom.xml` file:
         <dependency>
             <groupId>com.debacharya</groupId>
             <artifactId>nsgaii</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
         </dependency>
     </dependencies>
 ```
