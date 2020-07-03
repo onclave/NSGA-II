@@ -25,8 +25,6 @@ public class NonDominatedMajority implements TerminatingCriterion {
 		if((maxGenerations > 0) && (maxGenerations < generationCount))
 			return false;
 
-		List<Chromosome> flt = population.getPopulace().stream().filter(e -> e.getRank() == 1).collect(Collectors.toList());
-
 		return Service.percent(
 			this.majority,
 			population.size()

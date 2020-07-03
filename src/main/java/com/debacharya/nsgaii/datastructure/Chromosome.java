@@ -92,6 +92,10 @@ public class Chromosome {
 		return this.objectiveValues.get(index);
 	}
 
+	public double getAvgObjectiveValue() {
+		return this.objectiveValues.stream().mapToDouble(Double::doubleValue).summaryStatistics().getAverage();
+	}
+
 	public void addObjectiveValue(int index, double value) {
 
 		double roundedValue = Service.roundOff(value, 4);
