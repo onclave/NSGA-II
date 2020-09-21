@@ -65,18 +65,13 @@ public class StabilizationOfObjectives implements TerminatingCriterion {
 			this.avgObjectives.size()
 		);
 
-		for(int i = 1; i < avgObjectivesToConsider.size(); i++) {
-
-			double diff = Math.abs(avgObjectivesToConsider.get(i - 1) - avgObjectivesToConsider.get(i));
-
+		for(int i = 1; i < avgObjectivesToConsider.size(); i++)
 			if((this.shouldRoundOff
 				? Service.roundOff(
-				diff,
-				this.roundOffDecimalPlace
-			) : diff) > this.stabilizationThreshold)
+					Math.abs(avgObjectivesToConsider.get(i - 1) - avgObjectivesToConsider.get(i)),
+					this.roundOffDecimalPlace
+				) : Math.abs(avgObjectivesToConsider.get(i - 1) - avgObjectivesToConsider.get(i))) > this.stabilizationThreshold)
 				return true;
-		}
-
 
 		return false;
 	}
