@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/96868928.svg)](https://zenodo.org/badge/latestdoi/96868928)
+
 # NSGA-II
 **an NSGA-II implementation using Java**
 
@@ -71,3 +73,11 @@ To use it as a maven dependency add the following to your `pom.xml` file:
 ### Contributing
 
 This project is open to pull requests and encourages new features through contribution. The contribution guidelines shall be updated shortly.
+
+### Citation
+
+> You can now cite this NSGA-II implementation if you want.
+>
+> *Cite this library*
+>
+> Debabrata Acharya. (2020, September 21). onclave/NSGA-II: an NSGA-II implementation using Java. Zenodo. http://doi.org/10.5281/zenodo.4042108
