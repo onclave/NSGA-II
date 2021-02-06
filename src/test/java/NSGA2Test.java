@@ -1,6 +1,5 @@
 import com.debacharya.nsgaii.Configuration;
 import com.debacharya.nsgaii.NSGA2;
-import com.debacharya.nsgaii.Reporter;
 import com.debacharya.nsgaii.datastructure.Population;
 import com.debacharya.nsgaii.termination.StabilizationOfObjectives;
 

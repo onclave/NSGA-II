@@ -6,7 +6,6 @@ import com.debacharya.nsgaii.datastructure.Population;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class StabilizationOfObjectives implements TerminatingCriterion {
 

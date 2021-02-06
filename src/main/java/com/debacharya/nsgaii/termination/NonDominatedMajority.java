@@ -1,11 +1,7 @@
 package com.debacharya.nsgaii.termination;
 
 import com.debacharya.nsgaii.Service;
-import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class NonDominatedMajority implements TerminatingCriterion {
 

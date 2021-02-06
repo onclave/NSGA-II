@@ -1,6 +1,5 @@
 package com.debacharya.nsgaii.termination;
 
-import com.debacharya.nsgaii.Reporter;
 import com.debacharya.nsgaii.Service;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;

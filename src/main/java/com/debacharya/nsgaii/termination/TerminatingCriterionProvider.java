@@ -1,7 +1,5 @@
 package com.debacharya.nsgaii.termination;
 
-import com.debacharya.nsgaii.termination.TerminatingCriterion;
-
 public class TerminatingCriterionProvider {
 
 	/*

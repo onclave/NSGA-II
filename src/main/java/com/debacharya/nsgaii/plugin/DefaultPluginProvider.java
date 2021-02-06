@@ -25,14 +25,11 @@
 package com.debacharya.nsgaii.plugin;
 
 import com.debacharya.nsgaii.Service;
-import com.debacharya.nsgaii.datastructure.BooleanAllele;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 import com.debacharya.nsgaii.datastructure.Population;
-import com.debacharya.nsgaii.datastructure.ValueAllele;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class DefaultPluginProvider {
 

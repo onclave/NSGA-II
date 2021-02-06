@@ -25,7 +25,6 @@
 package com.debacharya.nsgaii.crossover;
 
 import com.debacharya.nsgaii.Service;
-import com.debacharya.nsgaii.crossover.CrossoverParticipantCreator;
 import com.debacharya.nsgaii.datastructure.Chromosome;
 
 import java.util.ArrayList;

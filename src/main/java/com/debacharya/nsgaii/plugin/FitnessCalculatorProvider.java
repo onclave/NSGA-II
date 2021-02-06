@@ -24,7 +24,6 @@
 
 package com.debacharya.nsgaii.plugin;
 
-import com.debacharya.nsgaii.Reporter;
 import com.debacharya.nsgaii.Service;
 import com.debacharya.nsgaii.datastructure.BooleanAllele;
 

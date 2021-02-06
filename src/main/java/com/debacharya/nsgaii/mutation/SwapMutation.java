@@ -1,6 +1,5 @@
 package com.debacharya.nsgaii.mutation;
 
-import com.debacharya.nsgaii.Reporter;
 import com.debacharya.nsgaii.Service;
 import com.debacharya.nsgaii.datastructure.AbstractAllele;
 import com.debacharya.nsgaii.datastructure.Chromosome;
