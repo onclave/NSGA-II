@@ -168,7 +168,7 @@ public class Chromosome {
 
 	public void reset() {
 		this.dominatedCount = 0;
-		this.rank = Integer.MAX_VALUE;
+		this.rank = -1;
 		this.dominatedChromosomes = new ArrayList<>();
 	}
 

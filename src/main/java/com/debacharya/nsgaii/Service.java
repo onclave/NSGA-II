@@ -177,6 +177,13 @@ public final class Service {
 		return false;
 	}
 
+	public static boolean populaceHasUnsetRank(List<Chromosome> populace) {
+		for(Chromosome chromosome : populace)
+			if(chromosome.getRank() == -1)
+				return true;
+		return false;
+	}
+
 	/**
 	 * an implementation of min-max normalization
 	 *

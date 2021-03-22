@@ -219,14 +219,20 @@ public class NSGA2 {
 		if(population.getLast().getDominatedCount() == 0)
 			population.getLast().setRank(1);
 
-		for(Chromosome chromosome : populace)
-			for(Chromosome dominatedChromosome : chromosome.getDominatedChromosomes()) {
+		while(Service.populaceHasUnsetRank(populace)) {
+			populace.forEach(chromosome -> {
+				if(chromosome.getRank() != -1)
+					chromosome.getDominatedChromosomes().forEach(dominatedChromosome -> {
+						if(dominatedChromosome.getDominatedCount() > 0) {
 
-				dominatedChromosome.incrementDominatedCount(-1);
+							dominatedChromosome.incrementDominatedCount(-1);
 
-				if(dominatedChromosome.getDominatedCount() == 0)
-					dominatedChromosome.setRank(chromosome.getRank() + 1);
-			}
+							if(dominatedChromosome.getDominatedCount() == 0)
+								dominatedChromosome.setRank(chromosome.getRank() + 1);
+						}
+					});
+			});
+		}
 	}
 
 	/**
